@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <!-- Your own application should inherit from spring-boot-starter-parent -->
+        <groupId>sibur.interaction.robots</groupId>
+        <artifactId>resume-autogenerator</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>resume-data</artifactId>
+    <name>resume domain with Spring JPA</name>
+    <description>resume domain for SOAP interaction and generate Resume with Spring JPA</description>
+    <url>http://www.spring.io/spring-boot/</url>
+    <organization>
+        <name>Security Problem Institute, Inc.</name>
+        <url>http://www.spi2.ru</url>
+    </organization>
+    <properties>
+        <main.basedir>${basedir}/../..</main.basedir>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- database -->
+        <dependency>
+            <groupId>com.oracle.ojdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.5.0</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/ias_data_types.xsd</source>
+                            </sources>
+                            <outputDirectory>src/main/java/</outputDirectory>
+                            <clearOutputDir>false</clearOutputDir>
+                            <packageName>security.contrparties.investigations.domain</packageName>
+                        </configuration>
+                    </execution>
+                    <!--execution>
+                        <id>xjc-schema2</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/xsds/east</source>
+                            </sources>
+                            <packageName>se.east</packageName>
+                            <clearOutputDir>false</clearOutputDir>
+                        </configuration>
+                    </execution-->
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
