@@ -1,4 +1,4 @@
-package security.contrparties.investigations.domain_etalon;
+package security.contrparties.investigations.domain;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 
 @XmlType(name = "ConcurrentProcedure", namespace = "http://spi2.ru/jaxws/datatypes")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "task", namespace = "http://spi2.ru/jaxws/datatypes")
+@XmlRootElement(name = "concurrentProcedure", namespace = "http://spi2.ru/jaxws/datatypes")
 public class ConcurrentProcedure {
 
 	/** Номер КП  - Номер тендерной процедуры уникален*/

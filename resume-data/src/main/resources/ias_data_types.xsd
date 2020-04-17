@@ -8,18 +8,19 @@
 <xs:element name="ConcurrentProcedureConclusionRequestAsyncResponse" type="tns:ConcurrentProcedureConclusionRequestAsyncResponse"/>
 <xs:element name="ContractConclusionRequestAsync" type="tns:ContractConclusionRequestAsync"/>
 <xs:element name="ContractConclusionRequestAsyncResponse" type="tns:ContractConclusionRequestAsyncResponse"/>
+<xs:element name="CounterpartySapIdentities" type="tns:CounterpartySapIdentities"/>
 <xs:element name="PutContractStatus" type="tns:PutContractStatus"/>
 <xs:element name="PutContractStatusResponse" type="tns:PutContractStatusResponse"/>
 <xs:element name="PutCounterpartyInfo" type="tns:PutCounterpartyInfo"/>
 <xs:element name="PutCounterpartyInfoResponse" type="tns:PutCounterpartyInfoResponse"/>
 <xs:element name="PutHistoricalContracts" type="tns:PutHistoricalContracts"/>
 <xs:element name="PutHistoricalContractsResponse" type="tns:PutHistoricalContractsResponse"/>
-<xs:element name="cisTask" type="tns:task"/>
-<xs:element name="task" nillable="true" type="xs:anyType"/>
+<xs:element name="cisTask" type="tns:CISTask"/>
+<xs:element name="concurrentProcedure" type="tns:ConcurrentProcedure"/>
 <xs:complexType name="ContractConclusionRequestAsync">
 <xs:sequence>
 <xs:element name="header" type="tns:Header" minOccurs="0"/>
-<xs:element name="cisTask" type="tns:task" minOccurs="0"/>
+<xs:element name="cisTask" type="tns:CISTask" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 <xs:complexType name="Header">
@@ -30,7 +31,7 @@
 <xs:element name="senddate" type="xs:dateTime"/>
 </xs:sequence>
 </xs:complexType>
-<xs:complexType name="task">
+<xs:complexType name="CISTask">
 <xs:sequence>
 <xs:element name="task_id" type="xs:string" minOccurs="0"/>
 <xs:element name="taskUrl" type="xs:string" minOccurs="0"/>
@@ -100,10 +101,10 @@
 </xs:complexType>
 <xs:complexType name="ContractConclusionRequestAsyncResponse">
 <xs:sequence>
-<xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+<xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
-<xs:complexType name="ResponseSync">
+<xs:complexType name="SyncResponse">
 <xs:sequence>
 <xs:element name="resultCode" type="xs:string" minOccurs="0"/>
 <xs:element name="resultMessage" type="xs:string"/>
@@ -122,7 +123,7 @@
 <xs:element name="companyRus" type="tns:CompanyRus" minOccurs="0"/>
 <xs:element name="flPrivateEntrepreneur" type="tns:PrivateEntrepreneur" minOccurs="0"/>
 <xs:element name="fl" type="tns:PersonRUS" minOccurs="0"/>
-<xs:element name="companyForeign" type="tns:ForeignCompany" minOccurs="0"/>
+<xs:element name="companyForeign" type="tns:CompanyForeign" minOccurs="0"/>
 <xs:element name="bankDetails" type="tns:BankDetail" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="contacts" type="tns:Contact" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="confirmLocation" type="tns:Attachment" minOccurs="0"/>
@@ -171,7 +172,7 @@
 <xs:element name="number" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
-<xs:complexType name="ForeignCompany">
+<xs:complexType name="CompanyForeign">
 <xs:sequence>
 <xs:element name="regNum" type="xs:string"/>
 <xs:element name="regDate" type="xs:date"/>
@@ -242,7 +243,7 @@
 </xs:complexType>
 <xs:complexType name="PutCounterpartyInfoResponse">
 <xs:sequence>
-<xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+<xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 <xs:complexType name="PutContractStatus">
@@ -254,7 +255,7 @@
 </xs:complexType>
 <xs:complexType name="PutContractStatusResponse">
 <xs:sequence>
-<xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+<xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 <xs:complexType name="CheckAndSaveRegistrCounterpartySRM_Async">
@@ -265,7 +266,7 @@
 </xs:complexType>
 <xs:complexType name="CheckAndSaveRegistrCounterpartySRM_AsyncResponse">
 <xs:sequence>
-<xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+<xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 <xs:complexType name="PutHistoricalContracts">
@@ -276,7 +277,7 @@
 </xs:complexType>
 <xs:complexType name="PutHistoricalContractsResponse">
 <xs:sequence>
-<xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+<xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 <xs:complexType name="ConcurrentProcedureConclusionRequestAsync">
@@ -302,7 +303,7 @@
 </xs:complexType>
 <xs:complexType name="ConcurrentProcedureConclusionRequestAsyncResponse">
 <xs:sequence>
-<xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+<xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 <xs:simpleType name="AddressTypes">

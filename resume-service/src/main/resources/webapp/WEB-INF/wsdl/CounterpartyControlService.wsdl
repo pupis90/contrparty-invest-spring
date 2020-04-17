@@ -16,6 +16,8 @@
 
       <xs:element name="ContractConclusionRequestAsyncResponse" type="tns:ContractConclusionRequestAsyncResponse"/>
 
+      <xs:element name="CounterpartySapIdentities" type="tns:CounterpartySapIdentities"/>
+
       <xs:element name="PutContractStatus" type="tns:PutContractStatus"/>
 
       <xs:element name="PutContractStatusResponse" type="tns:PutContractStatusResponse"/>
@@ -28,14 +30,14 @@
 
       <xs:element name="PutHistoricalContractsResponse" type="tns:PutHistoricalContractsResponse"/>
 
-      <xs:element name="cisTask" type="tns:task"/>
+      <xs:element name="cisTask" type="tns:CISTask"/>
 
-      <xs:element name="task" nillable="true" type="xs:anyType"/>
+      <xs:element name="concurrentProcedure" type="tns:ConcurrentProcedure"/>
 
       <xs:complexType name="ContractConclusionRequestAsync">
         <xs:sequence>
           <xs:element name="header" type="tns:Header" minOccurs="0"/>
-          <xs:element name="cisTask" type="tns:task" minOccurs="0"/>
+          <xs:element name="cisTask" type="tns:CISTask" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -48,7 +50,7 @@
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="task">
+      <xs:complexType name="CISTask">
         <xs:sequence>
           <xs:element name="task_id" type="xs:string" minOccurs="0"/>
           <xs:element name="taskUrl" type="xs:string" minOccurs="0"/>
@@ -124,11 +126,11 @@
 
       <xs:complexType name="ContractConclusionRequestAsyncResponse">
         <xs:sequence>
-          <xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+          <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="ResponseSync">
+      <xs:complexType name="SyncResponse">
         <xs:sequence>
           <xs:element name="resultCode" type="xs:string" minOccurs="0"/>
           <xs:element name="resultMessage" type="xs:string"/>
@@ -149,7 +151,7 @@
           <xs:element name="companyRus" type="tns:CompanyRus" minOccurs="0"/>
           <xs:element name="flPrivateEntrepreneur" type="tns:PrivateEntrepreneur" minOccurs="0"/>
           <xs:element name="fl" type="tns:PersonRUS" minOccurs="0"/>
-          <xs:element name="companyForeign" type="tns:ForeignCompany" minOccurs="0"/>
+          <xs:element name="companyForeign" type="tns:CompanyForeign" minOccurs="0"/>
           <xs:element name="bankDetails" type="tns:BankDetail" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="contacts" type="tns:Contact" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="confirmLocation" type="tns:Attachment" minOccurs="0"/>
@@ -203,7 +205,7 @@
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="ForeignCompany">
+      <xs:complexType name="CompanyForeign">
         <xs:sequence>
           <xs:element name="regNum" type="xs:string"/>
           <xs:element name="regDate" type="xs:date"/>
@@ -280,7 +282,7 @@
 
       <xs:complexType name="PutCounterpartyInfoResponse">
         <xs:sequence>
-          <xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+          <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -294,7 +296,7 @@
 
       <xs:complexType name="PutContractStatusResponse">
         <xs:sequence>
-          <xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+          <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -307,7 +309,7 @@
 
       <xs:complexType name="CheckAndSaveRegistrCounterpartySRM_AsyncResponse">
         <xs:sequence>
-          <xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+          <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -337,7 +339,7 @@
 
       <xs:complexType name="ConcurrentProcedureConclusionRequestAsyncResponse">
         <xs:sequence>
-          <xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+          <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -350,7 +352,7 @@
 
       <xs:complexType name="PutHistoricalContractsResponse">
         <xs:sequence>
-          <xs:element name="ResponseSync" type="tns:ResponseSync" form="qualified" minOccurs="0"/>
+          <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -381,12 +383,6 @@
   <message name="PutCounterpartyInfoResponse">
     <part name="parameters" element="tns:PutCounterpartyInfoResponse"/>
   </message>
-  <message name="PutHistoricalContracts">
-    <part name="parameters" element="tns:PutHistoricalContracts"/>
-  </message>
-  <message name="PutHistoricalContractsResponse">
-    <part name="parameters" element="tns:PutHistoricalContractsResponse"/>
-  </message>
   <message name="PutContractStatus">
     <part name="parameters" element="tns:PutContractStatus"/>
   </message>
@@ -398,6 +394,12 @@
   </message>
   <message name="ContractConclusionRequestAsyncResponse">
     <part name="parameters" element="tns:ContractConclusionRequestAsyncResponse"/>
+  </message>
+  <message name="PutHistoricalContracts">
+    <part name="parameters" element="tns:PutHistoricalContracts"/>
+  </message>
+  <message name="PutHistoricalContractsResponse">
+    <part name="parameters" element="tns:PutHistoricalContractsResponse"/>
   </message>
   <portType name="CounterPartyControlServiceImpl">
     <operation name="CheckAndSaveRegistrCounterpartySRM_Async">
@@ -412,10 +414,6 @@
       <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutCounterpartyInfoRequest" message="tns:PutCounterpartyInfo"/>
       <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutCounterpartyInfoResponse" message="tns:PutCounterpartyInfoResponse"/>
     </operation>
-    <operation name="PutHistoricalContracts">
-      <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutHistoricalContractsRequest" message="tns:PutHistoricalContracts"/>
-      <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutHistoricalContractsResponse" message="tns:PutHistoricalContractsResponse"/>
-    </operation>
     <operation name="PutContractStatus">
       <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutContractStatusRequest" message="tns:PutContractStatus"/>
       <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutContractStatusResponse" message="tns:PutContractStatusResponse"/>
@@ -423,6 +421,10 @@
     <operation name="ContractConclusionRequestAsync">
       <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/ContractConclusionRequestAsyncRequest" message="tns:ContractConclusionRequestAsync"/>
       <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/ContractConclusionRequestAsyncResponse" message="tns:ContractConclusionRequestAsyncResponse"/>
+    </operation>
+    <operation name="PutHistoricalContracts">
+      <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutHistoricalContractsRequest" message="tns:PutHistoricalContracts"/>
+      <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutHistoricalContractsResponse" message="tns:PutHistoricalContractsResponse"/>
     </operation>
   </portType>
   <binding name="CounterpartyControlServicePortBinding" type="tns:CounterPartyControlServiceImpl">
@@ -454,15 +456,6 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="PutHistoricalContracts">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
     <operation name="PutContractStatus">
       <soap:operation soapAction=""/>
       <input>
@@ -473,6 +466,15 @@
       </output>
     </operation>
     <operation name="ContractConclusionRequestAsync">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="PutHistoricalContracts">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>

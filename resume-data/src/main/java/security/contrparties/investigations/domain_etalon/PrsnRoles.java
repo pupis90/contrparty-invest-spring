@@ -1,4 +1,4 @@
-package security.contrparties.investigations.domain_etalon;
+package security.contrparties.investigations.domain;
 
 import javax.xml.bind.annotation.XmlType;
 

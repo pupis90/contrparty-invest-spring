@@ -1,13 +1,16 @@
 package security.contrparties.investigations.endpoints;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import security.contrparties.investigations.domain.*;
-import security.contrparties.investigations.domain_etalon.CISTask;
-import security.contrparties.investigations.domain_etalon.SyncResponse;
+i
 
+
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,8 +24,21 @@ public class CounterPartyControlServiceImpl {
      * D:\jaxws-ri\bin\wsgen.bat -wsdl -inlineSchemas -r C:\\Wsdls -verbose -keep -d C:\\Wsdls -s C:\\Wsdls
      * -cp D:\\ProgrammVictors\\CompanyResumeProducer_jdk14\\out\\production\\CompanyResumeProducer_jdk14 security.contrparties.investigations.endpoints.CounterPartyControlServiceImpl
      */
+    @Autowired
+    ApplicationContext applicationContext;
+
+
+
+
 
     public CounterPartyControlServiceImpl() {
+
+
+    }
+
+    @PostConstruct
+    private void debu(){
+        int br=1;
     }
 
     //<!-- Сообщения КИС. Инициализация БД ИАС историческими данными о Договорах  и согласовании Договоров -->
