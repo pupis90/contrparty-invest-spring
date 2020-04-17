@@ -1,4 +1,4 @@
-package security.contrparties.investigations.domain;
+package security.contrparties.investigations.domain_etalon;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;

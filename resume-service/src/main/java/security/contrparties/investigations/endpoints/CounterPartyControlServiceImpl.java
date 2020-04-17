@@ -7,8 +7,6 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import security.contrparties.investigations.domain.*;
-i
-
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
