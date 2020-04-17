@@ -9,6 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import security.contrparties.investigations.domain.*;
 
 import javax.annotation.PostConstruct;
+import javax.xml.bind.JAXBElement;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -75,28 +76,32 @@ public class CounterPartyControlServiceImpl {
 
     /**
      * Метод, принимающий статус Договора с контрагентом для его обновления в системе
-     * @param header
-     * @param contractId
-     * @param approvalStage
+     * @param putContractStatus
      * @return
      */
    // @WebMethod(operationName = "PutContractStatus")
    // @WebResult(name = "ResponseSync", targetNamespace = "http://spi2.ru/jaxws/datatypes", partName = "response")
     @PayloadRoot(localPart = "PutContractStatus", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
-    public SyncResponse putContractStatus(@RequestPayload Header header, @RequestPayload String contractId , @RequestPayload String approvalStage) {
+    //   public PutContractStatusResponse putContractStatus(@RequestPayload Header header, @RequestPayload String contractId , @RequestPayload String approvalStage) {
+    public JAXBElement<PutContractStatusResponse> putContractStatus(@RequestPayload JAXBElement<PutContractStatus> putContractStatus) {
 
-        SyncResponse handlerStatus = new SyncResponse();
+        ObjectFactory objectFactory = new ObjectFactory();
+        PutContractStatusResponse handlerStatus = objectFactory.createPutContractStatusResponse();
+        SyncResponse syncResponse = objectFactory.createSyncResponse();
+        handlerStatus.setResponseSync(syncResponse);
         //псевдокод
         if ("exist select * from Contract  where contract_id = contractId"=="true")
             // 	update Contract set  approval_stage = 	approvalStage where contract_id = contractId; commit;
-            handlerStatus.setResultCode("success");
+            syncResponse.setResultCode("success");
         else {
-            handlerStatus.setResultCode("fault");
-            handlerStatus.setResultMessage("Договор с идентификатором " +contractId + " не найден");
+            syncResponse.setResultCode("test");
+            String mess = "Договор с идентификатором " + putContractStatus.getValue().getContractId() + " не найден";
+            mess += " " + putContractStatus.getValue().getHeader().toString();
+            syncResponse.setResultMessage(mess);
         }
 
-        return handlerStatus;
+        return objectFactory.createPutContractStatusResponse(handlerStatus);
     }
 
 /**************************************************************************************************************/
