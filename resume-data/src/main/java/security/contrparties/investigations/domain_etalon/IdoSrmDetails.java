@@ -31,7 +31,7 @@ public class IdoSrmDetails {
 
 	/** Документ, подтверждающий местонахождение	 */
 //	@XmlElement
-//	public Attachment confirmLocationDoc;
+//	public AttachmentEntity confirmLocationDoc;
 
 	/** Документ (Справка контрагента), подтверждающий способность выполнить контракт без привлечения субподрядчиков (или о планируемом привлечении таковых?) 	 */
 	@XmlElement(required = true)
@@ -47,7 +47,7 @@ public class IdoSrmDetails {
 
 	/** Url Документа (Справка контрагента), подтверждающего способность выполнить контракт без привлечения субподрядчиков (или о планируемом привлечении таковых?) 	 */
 //		@XmlElement
-//		public Attachment confirmAbility;
+//		public AttachmentEntity confirmAbility;
 
 	/** Ссылка на xml с налоговой отчетностью	- не обрабатывается */
 		@XmlElement

@@ -7,6 +7,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import security.contrparties.investigations.domain.*;
+import security.contrparties.investigations.services.CheckAndSaveRegistrCounterpartyService;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBElement;
@@ -27,13 +28,12 @@ public class CounterPartyControlServiceImpl {
     ApplicationContext applicationContext;
 
 
-
-
-
-    public CounterPartyControlServiceImpl() {
-
-
+    public CounterPartyControlServiceImpl(CheckAndSaveRegistrCounterpartyService checkAndSaveRegistrCounterpartyService) {
+        this.checkAndSaveRegistrCounterpartyService = checkAndSaveRegistrCounterpartyService;
     }
+
+    CheckAndSaveRegistrCounterpartyService checkAndSaveRegistrCounterpartyService;
+
 
     @PostConstruct
     private void debu(){
@@ -53,6 +53,7 @@ public class CounterPartyControlServiceImpl {
     @PayloadRoot(localPart = "PutHistoricalContracts", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
     public SyncResponse putHistoricalContracts(@RequestPayload Header header, @RequestPayload List<Contract> contracts) {
+
 
         SyncResponse handlerStatus = new SyncResponse();
         return handlerStatus;
@@ -76,30 +77,34 @@ public class CounterPartyControlServiceImpl {
 
     /**
      * Метод, принимающий статус Договора с контрагентом для его обновления в системе
-     * @param putContractStatus
+     * @param
      * @return
      */
    // @WebMethod(operationName = "PutContractStatus")
    // @WebResult(name = "ResponseSync", targetNamespace = "http://spi2.ru/jaxws/datatypes", partName = "response")
     @PayloadRoot(localPart = "PutContractStatus", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
-    //   public PutContractStatusResponse putContractStatus(@RequestPayload Header header, @RequestPayload String contractId , @RequestPayload String approvalStage) {
-    public JAXBElement<PutContractStatusResponse> putContractStatus(@RequestPayload JAXBElement<PutContractStatus> putContractStatus) {
+    //   public PutContractStatusResponse putContractStatus(@RequestPayload HeaderEntity headerEntity, @RequestPayload String contractId , @RequestPayload String approvalStage) {
+    public JAXBElement<PutContractStatusResponse> putContractStatus(@RequestPayload JAXBElement<PutContractStatus> putContractStatusJAXBElement) {
 
         ObjectFactory objectFactory = new ObjectFactory();
+
         PutContractStatusResponse handlerStatus = objectFactory.createPutContractStatusResponse();
         SyncResponse syncResponse = objectFactory.createSyncResponse();
-        handlerStatus.setResponseSync(syncResponse);
+
+
         //псевдокод
-        if ("exist select * from Contract  where contract_id = contractId"=="true")
-            // 	update Contract set  approval_stage = 	approvalStage where contract_id = contractId; commit;
+        if ("exist select * from ContractEntity  where contract_id = contractId" == "true")
+            // 	update ContractEntity set  approval_stage = 	approvalStage where contract_id = contractId; commit;
             syncResponse.setResultCode("success");
         else {
             syncResponse.setResultCode("test");
-            String mess = "Договор с идентификатором " + putContractStatus.getValue().getContractId() + " не найден";
-            mess += " " + putContractStatus.getValue().getHeader().toString();
+            String mess = "Договор с идентификатором " + putContractStatusJAXBElement.getValue().getContractId() + " не найден";
+            mess += " " + putContractStatusJAXBElement.getValue().getHeader().toString();
             syncResponse.setResultMessage(mess);
+
         }
+        handlerStatus.setResponseSync(syncResponse);
 
         return objectFactory.createPutContractStatusResponse(handlerStatus);
     }
@@ -109,7 +114,7 @@ public class CounterPartyControlServiceImpl {
 
     /**
      * Метод, принимающий сообщение о том , что контрагент подал заявку на регистрацию (в SAP SRM)
-     * @param counterparty - реквизиты контрагента и др. информация
+     * @param  - реквизиты контрагента и др. информация
      *
      * @return
      */
@@ -117,9 +122,21 @@ public class CounterPartyControlServiceImpl {
  //   @WebResult(name = "ResponseSync", targetNamespace = "http://spi2.ru/jaxws/datatypes", partName = "response")
     @PayloadRoot(localPart = "CheckAndSaveRegistrCounterpartySRM_Async", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
-    public SyncResponse checkAndSaveRegistrCounterpartySRM_Async(@RequestPayload Header header, @RequestPayload Counterparty counterparty) {
-        SyncResponse handlerStatus = new SyncResponse();
-        return handlerStatus;
+    public JAXBElement<CheckAndSaveRegistrCounterpartySRMAsyncResponse> checkAndSaveRegistrCounterpartySRM_Async(JAXBElement<CheckAndSaveRegistrCounterpartySRMAsync> checkAndSaveRegistrCounterpartySRMAsyncJAXBElement) {
+        ObjectFactory objectFactory = new ObjectFactory();
+
+        CheckAndSaveRegistrCounterpartySRMAsyncResponse checkAndSaveRegistrCounterpartySRMAsyncResponse = objectFactory.createCheckAndSaveRegistrCounterpartySRMAsyncResponse();
+        SyncResponse syncResponse = objectFactory.createSyncResponse();
+
+        Header header = checkAndSaveRegistrCounterpartySRMAsyncJAXBElement.getValue().getHeader();
+        Counterparty counterparty = checkAndSaveRegistrCounterpartySRMAsyncJAXBElement.getValue().getCounterparty();
+
+        syncResponse = checkAndSaveRegistrCounterpartyService.simpleCheckToQueueForCheckAndAsyncResponse(header, counterparty, syncResponse);
+        syncResponse = checkAndSaveRegistrCounterpartyService.saveToQueueForFullCheckAndAsyncResponseCmpRus(header, counterparty, syncResponse);
+
+        checkAndSaveRegistrCounterpartySRMAsyncResponse.setResponseSync(syncResponse);
+
+        return objectFactory.createCheckAndSaveRegistrCounterpartySRMAsyncResponse(checkAndSaveRegistrCounterpartySRMAsyncResponse);
     }
 
 
@@ -137,8 +154,8 @@ public class CounterPartyControlServiceImpl {
   //  @WebResult(name = "ResponseSync", targetNamespace = "http://spi2.ru/jaxws/datatypes", partName = "response")
     @PayloadRoot(localPart = "PutCounterpartyInfo", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
-    public SyncResponse putCounterpartySrmId(@RequestPayload Header header, @RequestPayload BigDecimal registrationRegrequestId,
-                                             @RequestPayload  Counterparty counterparty, @RequestPayload CounterpartySapIdentities counterpartySapIdentities ) {
+    public SyncResponse putCounterpartyInfo(@RequestPayload Header header, @RequestPayload BigDecimal registrationRegrequestId,
+                                            @RequestPayload  Counterparty counterparty, @RequestPayload CounterpartySapIdentities counterpartySapIdentities ) {
         SyncResponse handlerStatus = new SyncResponse();
 
         //1. Найти сущность

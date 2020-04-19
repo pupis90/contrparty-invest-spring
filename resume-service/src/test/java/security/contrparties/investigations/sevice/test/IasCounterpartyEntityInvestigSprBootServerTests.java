@@ -2,17 +2,13 @@ package security.contrparties.investigations.sevice.test;
 
 
 import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.test.context.SpringBootTest;
 import security.contrparties.investigations.IasCounterpartyInvestigSprBootServer;
-
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest(classes = IasCounterpartyInvestigSprBootServer.class)
 //@WebAppConfiguration
 //@ActiveProfiles("scratch")
-class IasCounterpartyInvestigSprBootServerTests {
+class IasCounterpartyEntityInvestigSprBootServerTests {
 
 	@Test
 	void contextLoads() { 	}
