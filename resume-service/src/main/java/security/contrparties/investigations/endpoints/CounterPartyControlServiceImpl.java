@@ -122,7 +122,7 @@ public class CounterPartyControlServiceImpl {
  //   @WebResult(name = "ResponseSync", targetNamespace = "http://spi2.ru/jaxws/datatypes", partName = "response")
     @PayloadRoot(localPart = "CheckAndSaveRegistrCounterpartySRM_Async", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
-    public JAXBElement<CheckAndSaveRegistrCounterpartySRMAsyncResponse> checkAndSaveRegistrCounterpartySRM_Async(JAXBElement<CheckAndSaveRegistrCounterpartySRMAsync> checkAndSaveRegistrCounterpartySRMAsyncJAXBElement) {
+    public JAXBElement<CheckAndSaveRegistrCounterpartySRMAsyncResponse> checkAndSaveRegistrCounterpartySRM_Async(@RequestPayload JAXBElement<CheckAndSaveRegistrCounterpartySRMAsync> checkAndSaveRegistrCounterpartySRMAsyncJAXBElement) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         CheckAndSaveRegistrCounterpartySRMAsyncResponse checkAndSaveRegistrCounterpartySRMAsyncResponse = objectFactory.createCheckAndSaveRegistrCounterpartySRMAsyncResponse();

@@ -13,12 +13,14 @@ import security.contrparties.investigations.domain.CompanyForeign;
 import security.contrparties.investigations.domain.CompanyRus;
 import security.contrparties.investigations.domain.Counterparty;
 
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Table(name = "Counterparty")
 public class CounterpartyEntity extends BaseEntity {
 
