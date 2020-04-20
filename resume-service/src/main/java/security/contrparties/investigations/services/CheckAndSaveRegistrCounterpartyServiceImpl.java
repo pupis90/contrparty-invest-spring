@@ -25,6 +25,7 @@ public class CheckAndSaveRegistrCounterpartyServiceImpl implements CheckAndSaveR
     @Transactional
     public SyncResponse simpleCheckToQueueForCheckAndAsyncResponse(Header header, Counterparty counterparty, SyncResponse syncResponse) {
 
+        String mess = "";
         //Вообще регулярка будет в xsd , но и тут нужно проверять для надежности
 
         // Контроль ИНН
@@ -35,6 +36,8 @@ public class CheckAndSaveRegistrCounterpartyServiceImpl implements CheckAndSaveR
 
         // Контроль КПП
 
+        syncResponse.setResultMessage(syncResponse.getResultMessage() +
+                " Тест. Результат ФЛК реквизитов контрагента. Например, Код success  ");
         return syncResponse;
 
     }
@@ -46,7 +49,8 @@ public class CheckAndSaveRegistrCounterpartyServiceImpl implements CheckAndSaveR
         CounterpartyEntity ContractPersonEntity = new CounterpartyEntity(counterparty);
         syncResponse.setResultCode("test");
         counterpartyRepository.save(ContractPersonEntity);
-        syncResponse.setResultMessage(syncResponse.getResultMessage() + " Тест. Результат принятия (сохранения) реквизитов контрагента. Например, Код success Рекивизиты сохранены. ");
+        syncResponse.setResultMessage(syncResponse.getResultMessage() +
+                " Тест. Результат сохранения реквизитов контрагента. Например, Код success Рекивизиты сохранены. ");
         return syncResponse;
 
 

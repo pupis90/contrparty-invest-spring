@@ -13,17 +13,19 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import static javax.persistence.CascadeType.PERSIST;
+
 @Entity
 @Table(name = "ContractPerson")
 public class ContractPersonEntity extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity role;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected EmployeeEntity employeeEntity;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity function;
 
 

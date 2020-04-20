@@ -10,10 +10,14 @@ package security.contrparties.investigations.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 public class ConcurrentProcedureEntity extends BaseEntity {
@@ -25,9 +29,10 @@ public class ConcurrentProcedureEntity extends BaseEntity {
 
     protected String status;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date statusDate;
 
-    @OneToMany
+    @OneToMany(cascade = PERSIST)
     protected List<OfferEntity> participatorsOfferEntities;
 
     /**

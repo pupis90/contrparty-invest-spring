@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Entity
 @Table(name = "CISTask")
 public class CISTaskEntity extends BaseEntity {
@@ -22,7 +24,7 @@ public class CISTaskEntity extends BaseEntity {
     protected String taskUrl;
     protected Date taskDateTime;
 
-    @OneToOne
+    @OneToOne(cascade = ALL)
     protected ContractEntity contractEntity;
 
     /**

@@ -2,12 +2,14 @@ package security.contrparties.investigations.endpoints;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import security.contrparties.investigations.domain.*;
 import security.contrparties.investigations.services.CheckAndSaveRegistrCounterpartyService;
+import security.contrparties.investigations.services.SoapMessageStageHandleServiceImpl;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBElement;
@@ -27,12 +29,13 @@ public class CounterPartyControlServiceImpl {
     @Autowired
     ApplicationContext applicationContext;
 
-
-    public CounterPartyControlServiceImpl(CheckAndSaveRegistrCounterpartyService checkAndSaveRegistrCounterpartyService) {
+    public CounterPartyControlServiceImpl(CheckAndSaveRegistrCounterpartyService checkAndSaveRegistrCounterpartyService, SoapMessageStageHandleServiceImpl soapMessageStageProcessService) {
         this.checkAndSaveRegistrCounterpartyService = checkAndSaveRegistrCounterpartyService;
+        this.soapMessageStageProcessService = soapMessageStageProcessService;
     }
 
     CheckAndSaveRegistrCounterpartyService checkAndSaveRegistrCounterpartyService;
+    SoapMessageStageHandleServiceImpl soapMessageStageProcessService;
 
 
     @PostConstruct
@@ -85,10 +88,10 @@ public class CounterPartyControlServiceImpl {
     @PayloadRoot(localPart = "PutContractStatus", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
     //   public PutContractStatusResponse putContractStatus(@RequestPayload HeaderEntity headerEntity, @RequestPayload String contractId , @RequestPayload String approvalStage) {
-    public JAXBElement<PutContractStatusResponse> putContractStatus(@RequestPayload JAXBElement<PutContractStatus> putContractStatusJAXBElement) {
+    public JAXBElement<PutContractStatusResponse> putContractStatus(@RequestPayload JAXBElement<PutContractStatus> putContractStatusJAXBElement, MessageContext messageContext) {
 
         ObjectFactory objectFactory = new ObjectFactory();
-
+        soapMessageStageProcessService.saveBeforeHandle(messageContext);
         PutContractStatusResponse handlerStatus = objectFactory.createPutContractStatusResponse();
         SyncResponse syncResponse = objectFactory.createSyncResponse();
 
@@ -100,7 +103,8 @@ public class CounterPartyControlServiceImpl {
         else {
             syncResponse.setResultCode("test");
             String mess = "Договор с идентификатором " + putContractStatusJAXBElement.getValue().getContractId() + " не найден";
-            mess += " " + putContractStatusJAXBElement.getValue().getHeader().toString();
+            mess += " Запрос " + putContractStatusJAXBElement.getValue().getHeader().getRequestid() + " от " +
+                    putContractStatusJAXBElement.getValue().getHeader().getRequestdate();
             syncResponse.setResultMessage(mess);
 
         }
@@ -122,18 +126,23 @@ public class CounterPartyControlServiceImpl {
  //   @WebResult(name = "ResponseSync", targetNamespace = "http://spi2.ru/jaxws/datatypes", partName = "response")
     @PayloadRoot(localPart = "CheckAndSaveRegistrCounterpartySRM_Async", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
-    public JAXBElement<CheckAndSaveRegistrCounterpartySRMAsyncResponse> checkAndSaveRegistrCounterpartySRM_Async(@RequestPayload JAXBElement<CheckAndSaveRegistrCounterpartySRMAsync> checkAndSaveRegistrCounterpartySRMAsyncJAXBElement) {
+    public JAXBElement<CheckAndSaveRegistrCounterpartySRMAsyncResponse> checkAndSaveRegistrCounterpartySRM_Async(@RequestPayload JAXBElement<CheckAndSaveRegistrCounterpartySRMAsync> checkAndSaveRegistrCounterpartySRMAsyncJAXBElement
+            , MessageContext messageContext) {
         ObjectFactory objectFactory = new ObjectFactory();
 
+        soapMessageStageProcessService.saveBeforeHandle(messageContext);
         CheckAndSaveRegistrCounterpartySRMAsyncResponse checkAndSaveRegistrCounterpartySRMAsyncResponse = objectFactory.createCheckAndSaveRegistrCounterpartySRMAsyncResponse();
         SyncResponse syncResponse = objectFactory.createSyncResponse();
 
         Header header = checkAndSaveRegistrCounterpartySRMAsyncJAXBElement.getValue().getHeader();
         Counterparty counterparty = checkAndSaveRegistrCounterpartySRMAsyncJAXBElement.getValue().getCounterparty();
 
+        String mess = " Запрос " + header.getRequestid() + " от " + header.getRequestdate();
+
+        syncResponse.setResultMessage(mess);
         syncResponse = checkAndSaveRegistrCounterpartyService.simpleCheckToQueueForCheckAndAsyncResponse(header, counterparty, syncResponse);
         syncResponse = checkAndSaveRegistrCounterpartyService.saveToQueueForFullCheckAndAsyncResponseCmpRus(header, counterparty, syncResponse);
-
+        soapMessageStageProcessService.saveAfterHandle(messageContext, syncResponse);
         checkAndSaveRegistrCounterpartySRMAsyncResponse.setResponseSync(syncResponse);
 
         return objectFactory.createCheckAndSaveRegistrCounterpartySRMAsyncResponse(checkAndSaveRegistrCounterpartySRMAsyncResponse);

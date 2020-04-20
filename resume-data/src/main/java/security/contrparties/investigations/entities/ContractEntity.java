@@ -1,36 +1,38 @@
 
 package security.contrparties.investigations.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static javax.persistence.CascadeType.PERSIST;
+
 @Entity
-@Table(name = "Contarct")
+@Table(name = "Contract")
 public class ContractEntity extends BaseEntity {
 
     protected String contractId;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date docDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date cardDate;
 
     protected String userConractId;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity siburOrg;
 
     protected String regNum;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date regDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected CounterpartyInfoEntity counterpartyInfoEntity;
 
     protected String contractUrl;
@@ -39,13 +41,13 @@ public class ContractEntity extends BaseEntity {
 
     protected String subject;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity subCategory;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity kind;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity kindDd;
 
     protected BigDecimal amountVv;
@@ -56,14 +58,14 @@ public class ContractEntity extends BaseEntity {
 
     protected boolean framework;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity advancePaymentType;
 
     protected BigDecimal advancePaymentAmount;
 
     protected boolean postponement;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity kindVz;
 
     protected boolean safeList;
@@ -77,16 +79,18 @@ public class ContractEntity extends BaseEntity {
 
     protected String version;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date receiveDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date completeonDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity visa;
 
     protected String note;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     protected DictionaryEntity be;
 
     @OneToMany

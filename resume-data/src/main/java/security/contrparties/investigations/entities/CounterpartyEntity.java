@@ -20,32 +20,34 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.PERSIST;
+
 @Entity
 @Table(name = "Counterparty")
 public class CounterpartyEntity extends BaseEntity {
 
-    @OneToOne
+    @OneToOne(cascade = PERSIST)
     protected CompanyRusEntity companyRusEntity;
 
-    @OneToOne
+    @OneToOne(cascade = PERSIST)
     protected PrivateEntrepreneurEntity flPrivateEntrepreneurEntity;
 
-    @OneToOne
+    @OneToOne(cascade = PERSIST)
     protected PersonRUSEntity fl;
 
-    @OneToOne
+    @OneToOne(cascade = PERSIST)
     protected CompanyForeignEntity companyForeignEntity;
 
-    @OneToMany
+    @OneToMany(cascade = PERSIST)
     protected List<BankDetailEntity> bankDetailEntities;
 
-    @OneToMany
+    @OneToMany(cascade = PERSIST)
     protected List<ContactEntity> contactEntities;
 
-    @OneToOne
+    @OneToOne(cascade = PERSIST)
     protected AttachmentEntity confirmLocation;
 
-    @OneToOne
+    @OneToOne(cascade = PERSIST)
     protected AttachmentEntity confirmAbility;
 
 

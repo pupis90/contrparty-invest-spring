@@ -10,6 +10,8 @@ package security.contrparties.investigations.entities;
 
 
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,6 +22,7 @@ public class CounterpartySapIdentitiesEntity extends BaseEntity {
 
     protected BigDecimal sapSrmId;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date regDate;
 
     /**

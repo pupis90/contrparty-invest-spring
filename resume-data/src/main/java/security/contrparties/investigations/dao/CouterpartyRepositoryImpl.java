@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import security.contrparties.investigations.entities.CounterpartyEntity;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Table;
 import java.util.List;
 
 
@@ -67,10 +68,10 @@ public class CouterpartyRepositoryImpl implements CouterpartyRepository {
         // get the current hibernate session
         Session currentSession = entityManager.unwrap(Session.class);
 
-        // delete object with primary key
+        // delete object with primary key , а схeма ?
         Query theQuery =
                 currentSession.createQuery(
-                        "delete from Counterparty where id=:counterpartyEntityId", CounterpartyEntity.class);
+                        "delete from " + CounterpartyEntity.class.getAnnotation(Table.class).name() + " where id=:counterpartyEntityId", CounterpartyEntity.class);
         theQuery.setParameter("counterpartyEntityId", theId);
 
         theQuery.executeUpdate();

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static javax.persistence.CascadeType.PERSIST;
+
 @Entity
 @Table(name = "CompanyForeign")
 public class CompanyForeignEntity extends BaseEntity {
@@ -44,7 +46,7 @@ public class CompanyForeignEntity extends BaseEntity {
 
     protected String asvNsiCode;
 
-    @OneToMany
+    @OneToMany(cascade = PERSIST)
     protected List<AddressEntity> addresses;
 
     /**

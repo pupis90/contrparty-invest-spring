@@ -9,6 +9,8 @@
 package security.contrparties.investigations.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
 
@@ -20,8 +22,10 @@ public class HeaderEntity extends BaseEntity {
 
     protected String externalsystem;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date requestdate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date senddate;
 
     /**
