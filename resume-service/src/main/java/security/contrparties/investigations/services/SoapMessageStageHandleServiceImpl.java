@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.context.MessageContext;
+import org.springframework.ws.soap.SoapMessage;
 import security.contrparties.investigations.dao.SoapMessageStageRepositoryImpl;
 import security.contrparties.investigations.dao.WebServiceMethodRepo;
 import security.contrparties.investigations.domain.SyncResponse;
@@ -37,6 +38,11 @@ public class SoapMessageStageHandleServiceImpl {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
             webServiceMessage.writeTo(outputStream);
+
+            if (webServiceMessage instanceof SoapMessage) {
+                SoapMessage soapMessage = (SoapMessage) webServiceMessage;
+                logger.debug("*********** Это SOAP Message ******");
+            }
 
             String soapContent = outputStream.toString("UTF-8");
             logger.info(soapContent);
