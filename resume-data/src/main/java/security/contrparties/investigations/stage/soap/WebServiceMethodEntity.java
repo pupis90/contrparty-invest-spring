@@ -17,4 +17,6 @@ public class WebServiceMethodEntity {
     @Basic
     @Column(name = "F_WEB_METHOD_NAME", length = 4000)
     public String webMethodName;
+
+
 }

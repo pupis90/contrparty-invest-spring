@@ -25,4 +25,15 @@ public class SoapMessageStageRepositoryImpl {
         currentSession.saveOrUpdate(rawWsDataEntity);
 
     }
+
+    public void save(RawWsDataEntity rawWsDataEntity) {
+        // get the current hibernate session
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        // save employee
+        currentSession.save(rawWsDataEntity);
+
+    }
+
+
 }

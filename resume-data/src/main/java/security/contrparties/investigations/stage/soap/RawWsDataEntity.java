@@ -1,6 +1,7 @@
 package security.contrparties.investigations.stage.soap;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 import static javax.persistence.CascadeType.PERSIST;
@@ -14,19 +15,26 @@ public class RawWsDataEntity {
     @Column(name = "F_RAW_DATA_ID")
     public Long id;
 
-    @Lob
+    //@Lob
+
     @Column(name = "F_SOAP_DATA")
+    @Size(max = 4000)
     public String soapData;
 
-    @Lob
+    //@Lob
+
     @Column(name = "F_XML_DATA")
+    @Size(max = 4000)
     public String xmlData;
 
     @Column(name = "F_MAIL_SUBJECT")
+    @Size(max = 1000)
     public String mailSubject;
 
-    @Lob
+    //@Lob
+
     @Column(name = "F_MAIL_BODY")
+    @Size(max = 4000)
     public String mailBody = "";
 
     @Basic
@@ -42,7 +50,7 @@ public class RawWsDataEntity {
     @JoinColumn(name = "F_WEB_SERVICE_ID")
     public WebServiceMethodEntity webServiceEntity;
 
-    @Lob
+    // @Lob
     @Column(name = "F_ERROR_MESSAGE")
     public String errorMessage;
 

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.soap.SoapMessage;
+import security.contrparties.investigations.dao.ProcessingStatusRepo;
 import security.contrparties.investigations.dao.SoapMessageStageRepositoryImpl;
 import security.contrparties.investigations.dao.WebServiceMethodRepo;
 import security.contrparties.investigations.domain.SyncResponse;
@@ -20,6 +21,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import static security.contrparties.investigations.stage.soap.ProcessingStatus.PERSIST_RAW_DATA_DONE;
+
 @Service
 public class SoapMessageStageHandleServiceImpl {
     Logger logger = LogManager.getLogger(SoapMessageStageHandleServiceImpl.class);
@@ -28,6 +31,10 @@ public class SoapMessageStageHandleServiceImpl {
     SoapMessageStageRepositoryImpl soapMessageStageRepository;
     @Autowired
     WebServiceMethodRepo webServiceMethodRepo;
+
+    @Autowired
+    ProcessingStatusRepo procesingStatusRepo;
+
 
     @Transactional
     public void saveBeforeHandle(MessageContext messageContext) {
@@ -48,7 +55,7 @@ public class SoapMessageStageHandleServiceImpl {
             logger.info(soapContent);
             rawWsDataEntity.soapData = soapContent;
             rawWsDataEntity.creationTimestamp = new Date();
-            rawWsDataEntity.processingStatus = ProcessingStatus.PERSIST_RAW_DATA_DONE;
+
 
             String service = "CounterPartyControlService";
             String method = webServiceMessage.getPayloadSource().getSystemId();
@@ -62,7 +69,15 @@ public class SoapMessageStageHandleServiceImpl {
                 rawWsDataEntity.webServiceEntity = result.get(0);
             }
 
-            soapMessageStageRepository.saveOrUpdate(rawWsDataEntity);
+            List<ProcessingStatus> status = procesingStatusRepo.findByName(PERSIST_RAW_DATA_DONE.name);
+            if (status.size() == 0) {
+                rawWsDataEntity.processingStatus = PERSIST_RAW_DATA_DONE;
+            } else {
+
+                rawWsDataEntity.processingStatus = status.get(0);
+            }
+
+            soapMessageStageRepository.save(rawWsDataEntity);
 
         } catch (IOException e) {
             e.printStackTrace();
