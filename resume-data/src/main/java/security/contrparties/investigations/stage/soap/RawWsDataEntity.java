@@ -34,7 +34,7 @@ public class RawWsDataEntity {
     @Column(name = "F_CREATION_TIMESTAMP")
     public Date creationTimestamp;
 
-    @ManyToOne
+    @ManyToOne(cascade = PERSIST)
     @JoinColumn(name = "F_PROCESSING_STATUS_ID")
     public ProcessingStatus processingStatus;
 

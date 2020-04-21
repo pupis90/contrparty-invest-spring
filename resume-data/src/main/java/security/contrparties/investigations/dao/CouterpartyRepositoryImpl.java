@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import security.contrparties.investigations.entities.CounterpartyEntity;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Repository
 public class CouterpartyRepositoryImpl implements CouterpartyRepository {
 
+    @PersistenceContext
     private EntityManager entityManager;
 
     public CouterpartyRepositoryImpl(EntityManager entityManager) {
