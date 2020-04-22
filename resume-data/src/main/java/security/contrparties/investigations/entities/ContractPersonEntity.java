@@ -9,9 +9,7 @@
 package security.contrparties.investigations.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import static javax.persistence.CascadeType.PERSIST;
 
@@ -20,12 +18,18 @@ import static javax.persistence.CascadeType.PERSIST;
 public class ContractPersonEntity extends BaseEntity {
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "ROLE_ID")
     protected DictionaryEntity role;
 
-    @ManyToOne(cascade = PERSIST)
+    /**
+     * Справочник сотрудников - 100 тыс.
+     **/
+    @ManyToOne(cascade = PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "EMPLOYEE_ID")
     protected EmployeeEntity employeeEntity;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "FUNCTTION_ID")
     protected DictionaryEntity function;
 
 

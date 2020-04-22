@@ -54,7 +54,7 @@ public class Contract {
 	 *  Передается только АСВ НСИ код контрагента
 	 */
 	@XmlElement(name="counterparty_info",required = true)
-    //public Counterparty counterparty;
+	//public Counterparty counterparty;
 	public CounterpartyInfo counterpartyInfo;
 
 	/** Ссылка на договор в КИС	*/
@@ -68,7 +68,7 @@ public class Contract {
 
 	/** Предмет договора*/
 	@XmlElement(name ="subject", required = false)
-	public String subject;
+	public Dictionary subject;
 
 	/** Подтип договоора, напр. Договор */
 	@XmlElement(name ="sub_category", required = false)
@@ -128,7 +128,7 @@ public class Contract {
 
 	/** Cтатус */
 	@XmlElement(name ="approval_stage", required = false)
-	public Dictionary approvalStage;
+	public String approvalStage;
 
 	/** Версия, напр. 001.003.001.000 	 */
 	@XmlElement(name ="version", required = false)

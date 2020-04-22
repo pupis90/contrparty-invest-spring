@@ -8,9 +8,8 @@
 
 package security.contrparties.investigations.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
 
@@ -20,8 +19,12 @@ import static javax.persistence.CascadeType.ALL;
 @Table(name = "CISTask")
 public class CISTaskEntity extends BaseEntity {
 
+    @Size(max = 100)
     protected String taskId;
+    @Size(max = 100)
     protected String taskUrl;
+
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date taskDateTime;
 
     @OneToOne(cascade = ALL)

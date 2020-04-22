@@ -8,13 +8,17 @@
 
 package security.contrparties.investigations.entities;
 
+import javax.validation.constraints.Size;
+
 //@Entity
 public class PutContractStatusEntity extends BaseEntity {
 
     protected HeaderEntity headerEntity;
 
+    @Size(max = 50)
     protected String contractId;
 
+    @Size(max = 50)
     protected String approvalStage;
 
     /**

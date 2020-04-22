@@ -12,18 +12,26 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Address")
 public class AddressEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     protected AddressTypesEntity addrType;
+    @Size(max = 100)
     protected String mailBox;
+    @Size(max = 100)
     protected String country;
+    @Size(max = 100)
     protected String city;
+    @Size(max = 50)
     protected String postalCode;
+    @Size(max = 1000)
     protected String street;
+    @Size(max = 30)
     protected String house;
+    @Size(max = 20)
     protected String room;
 
     /**

@@ -9,10 +9,12 @@
 package security.contrparties.investigations.entities;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Size;
 
 @Entity
 public class EmployeeEntity extends BaseEntity {
 
+    @Size(max = 200)
     protected String personnelNumber;
 
     /**

@@ -10,28 +10,38 @@ package security.contrparties.investigations.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 
 @Entity
 @Table(name = "CompanyRus")
 public class CompanyRusEntity extends BaseEntity {
 
+    @Size(max = 500)
     protected String fullName;
 
+    @Size(max = 500)
     protected String shortName;
 
+    @Size(max = 10)
     protected String inn;
 
+    @Size(max = 9)
     protected String kpp;
 
+    @Size(max = 13)
     protected String ogrn;
 
+    @Size(max = 10)
     protected String okpo;
 
+    @Size(max = 11)
     protected String bic;
 
+    @Size(max = 130)
     protected String asvNsiCode;
 
+    @Size(max = 40)
     protected String sparkid;
 
     /**

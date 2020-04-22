@@ -51,7 +51,7 @@
 <xs:element name="counterparty_info" type="tns:CounterpartyInfo"/>
 <xs:element name="contract_url" type="xs:string" minOccurs="0"/>
 <xs:element name="procedure_number" type="xs:string" minOccurs="0"/>
-<xs:element name="subject" type="xs:string" minOccurs="0"/>
+    <xs:element name="subject" type="tns:Dictionary" minOccurs="0"/>
 <xs:element name="sub_category" type="tns:Dictionary" minOccurs="0"/>
 <xs:element name="kind" type="tns:Dictionary" minOccurs="0"/>
 <xs:element name="kind_dd" type="tns:Dictionary" minOccurs="0"/>
@@ -66,7 +66,7 @@
 <xs:element name="safe_list" type="xs:boolean"/>
 <xs:element name="is_default" type="xs:string" minOccurs="0"/>
 <xs:element name="urgent" type="xs:string" minOccurs="0"/>
-<xs:element name="approval_stage" type="tns:Dictionary" minOccurs="0"/>
+    <xs:element name="approval_stage" type="xs:string" minOccurs="0"/>
 <xs:element name="version" type="xs:string" minOccurs="0"/>
 <xs:element name="receive_date" type="xs:dateTime" minOccurs="0"/>
 <xs:element name="completeon_date" type="xs:dateTime" minOccurs="0"/>
@@ -110,18 +110,6 @@
 <xs:element name="resultMessage" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
-    <xs:complexType name="PutContractStatus">
-        <xs:sequence>
-            <xs:element name="header" type="tns:Header" minOccurs="0"/>
-            <xs:element name="contractId" type="xs:string" minOccurs="0"/>
-            <xs:element name="approvalStage" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="PutContractStatusResponse">
-        <xs:sequence>
-            <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
 <xs:complexType name="PutCounterpartyInfo">
 <xs:sequence>
 <xs:element name="header" type="tns:Header" minOccurs="0"/>
@@ -218,6 +206,7 @@
 <xs:element name="lastName" type="xs:string" minOccurs="0"/>
 <xs:element name="inn" type="xs:string" minOccurs="0"/>
 <xs:element name="post" type="xs:string" minOccurs="0"/>
+    <xs:element name="phone_country_cod" type="xs:string" minOccurs="0"/>
 <xs:element name="phone" type="xs:string" minOccurs="0"/>
 <xs:element name="email" type="xs:string" minOccurs="0"/>
 <xs:element name="language" type="xs:string" minOccurs="0"/>
@@ -239,6 +228,18 @@
 </xs:sequence>
 </xs:complexType>
 <xs:complexType name="PutCounterpartyInfoResponse">
+    <xs:sequence>
+        <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
+    </xs:sequence>
+</xs:complexType>
+    <xs:complexType name="PutContractStatus">
+        <xs:sequence>
+            <xs:element name="header" type="tns:Header" minOccurs="0"/>
+            <xs:element name="contractId" type="xs:string" minOccurs="0"/>
+            <xs:element name="approvalStage" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PutContractStatusResponse">
 <xs:sequence>
 <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>
@@ -251,6 +252,17 @@
 </xs:sequence>
 </xs:complexType>
 <xs:complexType name="CheckAndSaveRegistrCounterpartySRM_AsyncResponse">
+    <xs:sequence>
+        <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
+    </xs:sequence>
+</xs:complexType>
+    <xs:complexType name="PutHistoricalContracts">
+        <xs:sequence>
+            <xs:element name="header" type="tns:Header" minOccurs="0"/>
+            <xs:element name="contracts" type="tns:Contract" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PutHistoricalContractsResponse">
 <xs:sequence>
 <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>
@@ -278,17 +290,6 @@
 </xs:sequence>
 </xs:complexType>
 <xs:complexType name="ConcurrentProcedureConclusionRequestAsyncResponse">
-    <xs:sequence>
-        <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
-    </xs:sequence>
-</xs:complexType>
-    <xs:complexType name="PutHistoricalContracts">
-        <xs:sequence>
-            <xs:element name="header" type="tns:Header" minOccurs="0"/>
-            <xs:element name="contracts" type="tns:Contract" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="PutHistoricalContractsResponse">
 <xs:sequence>
 <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
 </xs:sequence>

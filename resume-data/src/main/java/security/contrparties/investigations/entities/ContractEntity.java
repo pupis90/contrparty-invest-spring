@@ -2,6 +2,7 @@
 package security.contrparties.investigations.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import static javax.persistence.CascadeType.PERSIST;
 @Table(name = "Contract")
 public class ContractEntity extends BaseEntity {
 
+    @Size(max = 50)
     protected String contractId;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -22,32 +24,44 @@ public class ContractEntity extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date cardDate;
 
+    @Size(max = 300)
     protected String userConractId;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "SIBUR_ORG_ID")
     protected DictionaryEntity siburOrg;
 
+    @Size(max = 300)
     protected String regNum;
 
     @Temporal(TemporalType.TIMESTAMP)
     protected Date regDate;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "CNTGRAG_INF_ID")
     protected CounterpartyInfoEntity counterpartyInfoEntity;
 
+    @Size(max = 500)
     protected String contractUrl;
 
+    @Size(max = 100)
     protected String procedureNumber;
 
-    protected String subject;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "SUBJ_ID")
+    protected DictionaryEntity subject;
+
+    @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "SUB_CATEG_ID")
     protected DictionaryEntity subCategory;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "KIND_ID")
     protected DictionaryEntity kind;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "KIND_DD_ID")
     protected DictionaryEntity kindDd;
 
     protected BigDecimal amountVv;
@@ -59,6 +73,7 @@ public class ContractEntity extends BaseEntity {
     protected boolean framework;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "AVANCE_ID")
     protected DictionaryEntity advancePaymentType;
 
     protected BigDecimal advancePaymentAmount;
@@ -66,17 +81,23 @@ public class ContractEntity extends BaseEntity {
     protected boolean postponement;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "KIND_VZ__ID")
     protected DictionaryEntity kindVz;
 
     protected boolean safeList;
 
+    @Size(max = 40)
     protected String isDefault;
 
+    @Size(max = 40)
     protected String urgent;
 
-    @ManyToOne
-    protected DictionaryEntity approvalStage;
+    /**
+     * Статус
+     */
+    protected String approvalStage;
 
+    @Size(max = 100)
     protected String version;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -86,11 +107,14 @@ public class ContractEntity extends BaseEntity {
     protected Date completeonDate;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "VISA_ID")
     protected DictionaryEntity visa;
 
+    @Size(max = 2000)
     protected String note;
 
     @ManyToOne(cascade = PERSIST)
+    @JoinColumn(name = "BE_ID")
     protected DictionaryEntity be;
 
     @OneToMany
@@ -302,7 +326,7 @@ public class ContractEntity extends BaseEntity {
      * @return possible object is
      * {@link String }
      */
-    public String getSubject() {
+    public DictionaryEntity getSubject() {
         return subject;
     }
 
@@ -312,7 +336,7 @@ public class ContractEntity extends BaseEntity {
      * @param value allowed object is
      *              {@link String }
      */
-    public void setSubject(String value) {
+    public void setSubject(DictionaryEntity value) {
         this.subject = value;
     }
 
@@ -584,7 +608,7 @@ public class ContractEntity extends BaseEntity {
      * @return possible object is
      * {@link DictionaryEntity }
      */
-    public DictionaryEntity getApprovalStage() {
+    public String getApprovalStage() {
         return approvalStage;
     }
 
@@ -594,7 +618,7 @@ public class ContractEntity extends BaseEntity {
      * @param value allowed object is
      *              {@link DictionaryEntity }
      */
-    public void setApprovalStage(DictionaryEntity value) {
+    public void setApprovalStage(String value) {
         this.approvalStage = value;
     }
 

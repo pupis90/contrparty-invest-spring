@@ -11,6 +11,7 @@ package security.contrparties.investigations.entities;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
 
@@ -24,9 +25,11 @@ public class PersonRUSEntity extends BaseEntity {
 
     protected String lastName;
 
+    @Size(max = 12)
     protected String inn;
 
     protected String socialSecurityNumber;
+
 
     protected Date birthDate;
 
@@ -35,7 +38,7 @@ public class PersonRUSEntity extends BaseEntity {
     @OneToOne
     protected PassportEntity passportEntity;
 
-
+    @Size(max = 130)
     protected String asvNsiCode;
 
     /**

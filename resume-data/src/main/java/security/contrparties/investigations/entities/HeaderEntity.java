@@ -18,6 +18,7 @@ import java.util.Date;
 @Entity
 public class HeaderEntity extends BaseEntity {
 
+
     protected long requestid;
 
     protected String externalsystem;

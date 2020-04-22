@@ -10,19 +10,31 @@ package security.contrparties.investigations.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Contact")
 public class ContactEntity extends BaseEntity {
 
+    @Size(max = 500)
     protected String fio;
+    @Size(max = 100)
     protected String firstName;
+    @Size(max = 200)
     protected String secondName;
+    @Size(max = 200)
     protected String lastName;
+    @Size(max = 12)
     protected String inn;
+    @Size(max = 100)
     protected String post;
+    @Size(max = 100)
+    protected String phone_country_cod;
+    @Size(max = 100)
     protected String phone;
+    @Size(max = 200)
     protected String email;
+    @Size(max = 100)
     protected String language;
 
     /**
@@ -143,6 +155,14 @@ public class ContactEntity extends BaseEntity {
      */
     public void setPost(String value) {
         this.post = value;
+    }
+
+    public String getPhone_country_cod() {
+        return phone_country_cod;
+    }
+
+    public void setPhone_country_cod(String phone_country_cod) {
+        this.phone_country_cod = phone_country_cod;
     }
 
     /**

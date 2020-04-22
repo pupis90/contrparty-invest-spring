@@ -7,29 +7,94 @@
   <types>
     <xs:schema version="1.0" targetNamespace="http://spi2.ru/jaxws/datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-      <xs:element name="CheckAndSaveRegistrCounterpartySRM_Async" type="tns:CheckAndSaveRegistrCounterpartySRM_Async"/>
+      <xs:element name="CheckAndSaveRegistrCounterpartySRM_Async" type="tns:CheckAndSaveRegistrCounterpartySRM_Async">
+        <xs:annotation>
+          <xs:documentation><![CDATA[
+       Сообщение SAP SRM о том , что контрагент - участник подал заявку на регистрацию (в SAP SRM)
+       с целью проведения проверки основных данных, предоставленных контрагентом
+       Возвращает синхронный CheckAndSaveRegistrCounterpartySRM_AsyncResponse ответ о результатах простой проверки (ФЛК).
+       Возвращает асинхронный ответ о результатах  проверки.
+			]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
 
-      <xs:element name="CheckAndSaveRegistrCounterpartySRM_AsyncResponse" type="tns:CheckAndSaveRegistrCounterpartySRM_AsyncResponse"/>
+      <xs:element name="CheckAndSaveRegistrCounterpartySRM_AsyncResponse"
+                  type="tns:CheckAndSaveRegistrCounterpartySRM_AsyncResponse">
+        <xs:annotation>
+          <xs:documentation><![CDATA[
+       Синхронный  ответ на CheckAndSaveRegistrCounterpartySRM_Async о результатах простой проверки (ФЛК).
+    		]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
 
-      <xs:element name="ConcurrentProcedureConclusionRequestAsync" type="tns:ConcurrentProcedureConclusionRequestAsync"/>
+      <xs:element name="ConcurrentProcedureConclusionRequestAsync" type="tns:ConcurrentProcedureConclusionRequestAsync">
+        <xs:annotation>
+          <xs:documentation><![CDATA[
+       Сообщение SAP SRM, которое может быть послано несколько раз для одной или разных групп участников
+       во время проведения конкурентной процедуры. На принятый запрос формируется синхронный ответ ConcurrentProcedureConclusionRequestAsyncResponse.
+	   Кроме того, по каждому участнику из группы формируется внутри ИАС аналитический отчет нового типа,
+	   а затем, на основе отчета, формируется и отсылается асинхронно ответ с Заключением.
+       а сотрудник может его изменить
+       В Заклюении указывается
+       1. Виза
+       2. Комментарии: 2.1. Наличие связи с участниками КП 2.2. Перечень связанных  sap_srm_id
+    		]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
 
       <xs:element name="ConcurrentProcedureConclusionRequestAsyncResponse" type="tns:ConcurrentProcedureConclusionRequestAsyncResponse"/>
 
-      <xs:element name="ContractConclusionRequestAsync" type="tns:ContractConclusionRequestAsync"/>
+      <xs:element name="ContractConclusionRequestAsync" type="tns:ContractConclusionRequestAsync">
+        <xs:annotation>
+          <xs:documentation><![CDATA[
+           Запрос из КИС на асинхронную выдачу Заключения СБ при согласовании Договора с контрагентом
+           cisTask - задание в КИС по согласованию Договора
+    		]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
 
       <xs:element name="ContractConclusionRequestAsyncResponse" type="tns:ContractConclusionRequestAsyncResponse"/>
 
-      <xs:element name="CounterpartySapIdentities" type="tns:CounterpartySapIdentities"/>
+      <xs:element name="CounterpartySapIdentities" type="tns:CounterpartySapIdentities">
+        <xs:annotation>
+          <xs:documentation><![CDATA[
+          Это не сообщение. Сведения SAP SRM о регистрационных данных участника в SAP SRM
+    		]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
 
-      <xs:element name="PutContractStatus" type="tns:PutContractStatus"/>
+      <xs:element name="PutContractStatus" type="tns:PutContractStatus">
+        <xs:annotation>
+          <xs:documentation><![CDATA[
+           Сообщение от КИС с новым статусум Договора с контрагентом для его обновления в системе (без ведения истории).
+		   Требует только асинхронного ответа PutContractStatusResponse
+    		]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
 
       <xs:element name="PutContractStatusResponse" type="tns:PutContractStatusResponse"/>
 
-      <xs:element name="PutCounterpartyInfo" type="tns:PutCounterpartyInfo"/>
+      <xs:element name="PutCounterpartyInfo" type="tns:PutCounterpartyInfo">
+        <xs:annotation>
+          <xs:documentation><![CDATA[
+           Запрос из SAp SRM о проверке основных данных, предоставленных контрагентом. Отправляется после того, как контрагент подал заявку на регистрацию (в SAP SRM)
+           Возвращается синхронный ответ PutCounterpartyInfoResponse  с данными ФЛК и асинхронный ответ с результатам более полной проверки.
+    		]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
 
       <xs:element name="PutCounterpartyInfoResponse" type="tns:PutCounterpartyInfoResponse"/>
 
-      <xs:element name="PutHistoricalContracts" type="tns:PutHistoricalContracts"/>
+      <xs:element name="PutHistoricalContracts" type="tns:PutHistoricalContracts">
+        <xs:annotation>
+          <xs:documentation><![CDATA[
+           Сообщение от КИС с данными по ранее заключенными договорам. Требуется для инициализации БД ИАС.
+		   Должно содержать ограниченное число контрактов - порцию, пакет. Ограничение на пакет устанавливается исходя 
+		   из ресурса взаимодействующих систем. Число пакетов не ограничено.
+		   Возвращается только синхронный ответ PutHistoricalContractsResponse
+    		]]></xs:documentation>
+        </xs:annotation>
+      </xs:element>
 
       <xs:element name="PutHistoricalContractsResponse" type="tns:PutHistoricalContractsResponse"/>
 
@@ -44,85 +109,136 @@
         </xs:sequence>
       </xs:complexType>
 
+      <!-- Заголовок сообщения. Требуется в каждом сообщении -->
       <xs:complexType name="Header">
         <xs:sequence>
+          <!-- Обязательный уникальный числовой код запроса. Требуется для сквозной идентификации сообщении -->
           <xs:element name="requestid" type="xs:long"/>
+          <!-- Обязательный уникальный код системы, отправившей запрос -->
           <xs:element name="externalsystem" type="xs:string"/>
+          <!-- Обязательный уникальный атрибут с датой и временем подготовки запроса. Требуется для сквозной идентификации сообщении -->
           <xs:element name="requestdate" type="xs:dateTime"/>
+          <!-- Обязательный уникальный атрибут с датой и временем отправки запроса. Требуется, в частности, для анализа проблем с доставкой, не связанных
+           с ИАС ПроверКА -->
           <xs:element name="senddate" type="xs:dateTime"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!-- Задача КИС на заключение Договора с контрагентом, в рамках которой требуется заключение СБ -->
       <xs:complexType name="CISTask">
         <xs:sequence>
+          <!-- Уникальный идентификатор задачи КИС на заключение Договора с контрагентом, в рамках которой требуется заключение СБ -->
           <xs:element name="task_id" type="xs:string" minOccurs="0"/>
           <xs:element name="taskUrl" type="xs:string" minOccurs="0"/>
           <xs:element name="taskDateTime" type="xs:dateTime" minOccurs="0"/>
+          <!-- Договор с контрагентом, по которому требуется заключение СБ -->
           <xs:element name="contract" type="tns:Contract"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!-- Договор с контрагентом, по которому требуется заключение СБ -->
       <xs:complexType name="Contract">
         <xs:sequence>
+          <!-- Идентификатор договора (системный идентификатор КИС)
+           – присваивается КИС, уникальный в рамках всего репозитория КИС  -->
           <xs:element name="contract_id" type="xs:string"/>
+          <!-- Дата документа в КИС -->
           <xs:element name="doc_date" type="xs:date"/>
+          <!-- Дата создания РК в КИС -->
           <xs:element name="card_date" type="xs:date"/>
+          <!-- Идентификатор договора, отображаемый для пользователя. 
+	    	Уникален в рамках вида документа + Организация -->
           <xs:element name="user_conract_id" type="xs:string" minOccurs="0"/>
+          <!-- Организация Сибур (код + значение) -->
           <xs:element name="sibur_org" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Регистрационный номер договора (как на самом договоре) -->
           <xs:element name="reg_num" type="xs:string"/>
+          <!-- Дата регистрации договора -->
           <xs:element name="reg_date" type="xs:date"/>
+          <!-- Сведения о контрагенте по договору (Код АСВ НСИ) -->
           <xs:element name="counterparty_info" type="tns:CounterpartyInfo"/>
+          <!-- Ссылка на договор в КИС   -->
           <xs:element name="contract_url" type="xs:string" minOccurs="0"/>
+          <!-- Номер КП - уникальный номер тендерной процедуры,
+                на основе которой заключается договор   -->
           <xs:element name="procedure_number" type="xs:string" minOccurs="0"/>
-          <xs:element name="subject" type="xs:string" minOccurs="0"/>
+          <!-- Предмет договора (код + значение) -->
+          <xs:element name="subject" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Подтип договора (код + значение) -->
           <xs:element name="sub_category" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Вид договора (код + значение)  -->
           <xs:element name="kind" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Вид договорного документа (ДД) (код + значение)   -->
           <xs:element name="kind_dd" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Сумма в ВВ    -->
           <xs:element name="amount_vv" type="xs:decimal" minOccurs="0"/>
+          <!-- Сумма сделки в рублях    -->
           <xs:element name="amount_transaction" type="xs:decimal" minOccurs="0"/>
+          <!-- Сумма общая в рублях   -->
           <xs:element name="amount_total" type="xs:decimal" minOccurs="0"/>
+          <!-- Является ли рамочным (да, нет)  -->
           <xs:element name="framework" type="xs:boolean"/>
+          <!-- Авансирование договора -->
           <xs:element name="advance_payment_type" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Cумма аванса в рублях  -->
           <xs:element name="advance_payment_amount" type="xs:decimal" minOccurs="0"/>
+          <!-- Наличие отсрочки (да, нет)  -->
           <xs:element name="postponement" type="xs:boolean"/>
+          <!-- Вид вз. (код + значение)   -->
           <xs:element name="kind_vz" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Включен ли в safe - список  -->
           <xs:element name="safe_list" type="xs:boolean"/>
+          <!-- Является ли стандартным  -->
           <xs:element name="is_default" type="xs:string" minOccurs="0"/>
+          <!-- Булев атрибут важности/срочности   -->
           <xs:element name="urgent" type="xs:string" minOccurs="0"/>
-          <xs:element name="approval_stage" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Статус -->
+          <xs:element name="approval_stage" type="xs:string" minOccurs="0"/>
+          <!-- Версия -->
           <xs:element name="version" type="xs:string" minOccurs="0"/>
+          <!-- Дата и время получения  -->
           <xs:element name="receive_date" type="xs:dateTime" minOccurs="0"/>
+          <!-- Дата и время завершения   -->
           <xs:element name="completeon_date" type="xs:dateTime" minOccurs="0"/>
+          <!-- Ранее поставленная виза СБ: Согласовано, Не согласовано (код + значение) .
+                Заполняется только для договоров, которые загружаются при инициализации БД ИАС (исторические данные) -->
           <xs:element name="visa" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Замечания   -->
           <xs:element name="note" type="xs:string" minOccurs="0"/>
+          <!-- Бизнес единица  -->
           <xs:element name="be" type="tns:Dictionary" minOccurs="0"/>
+          <!-- Список Сотрудников Сибур, связанных с Договором и их ролей -->
           <xs:element name="person_list" type="tns:ContractPerson" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:complexType>
-
+      <!-- Простой словарь, строчки которого включаются в сообщения  -->
       <xs:complexType name="Dictionary">
         <xs:sequence>
           <xs:element name="code" type="xs:string"/>
           <xs:element name="description" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
-
+      <!-- Сведения о контрагенте по договору (Код АСВ НСИ) -->
       <xs:complexType name="CounterpartyInfo">
         <xs:sequence>
           <xs:element name="asvnsicode" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
-
+      <!--  Сотрудник Сибур, связанный с Договором на  роли -->
       <xs:complexType name="ContractPerson">
         <xs:sequence>
+          <!--  Роль сотрудника в Договоре ИНИЦ, ОЛД, ЛУП, АВТ, ЛСД -->
           <xs:element name="role" type="tns:Dictionary" minOccurs="0"/>
+          <!--  Информация о сотруднике в Договоре -->
           <xs:element name="employee" type="tns:Employee"/>
+          <!-- Функция Сибур, к которой относится сотрудник -->
           <xs:element name="function" type="tns:Dictionary" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
-
+      <!--  Информация о сотруднике в Договоре -->
       <xs:complexType name="Employee">
         <xs:sequence>
+          <!--  Персональный номер сотрудника Сибур -->
           <xs:element name="PersonnelNumber" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
@@ -132,136 +248,240 @@
           <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
-
+      <!--  Синхронный ответ, универсальный -->
       <xs:complexType name="SyncResponse">
         <xs:sequence>
           <xs:element name="resultCode" type="xs:string" minOccurs="0"/>
           <xs:element name="resultMessage" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
-
-      <xs:complexType name="PutCounterpartyInfo">
+      <!--  Сообщение от КИС с новым статусум Договора -->
+      <xs:complexType name="PutContractStatus">
         <xs:sequence>
+          <!--  Заголовок -->
           <xs:element name="header" type="tns:Header" minOccurs="0"/>
-          <xs:element name="registrationRegrequestId" type="xs:string" minOccurs="0"/>
-          <xs:element name="counterparty" type="tns:Counterparty" minOccurs="0"/>
-          <xs:element name="counterpartySapIdentities" type="tns:CounterpartySapIdentities" minOccurs="0"/>
+          <!--  Идентификатор Договора -->
+          <xs:element name="contractId" type="xs:string" minOccurs="0"/>
+          <!--  Статус Договора -->
+          <xs:element name="approvalStage" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
+      <xs:complexType name="PutContractStatusResponse">
+        <xs:sequence>
+          <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+      <!--  Информация о зарегистрированном контрагенте -->
+      <xs:complexType name="PutCounterpartyInfo">
+        <xs:sequence>
+          <!--  Заголовок -->
+          <xs:element name="header" type="tns:Header" minOccurs="0"/>
+          <!--  Идентификатор запроса (request_id) на первиную проверку.
+               См. CheckAndSaveRegistrCounterpartySRM_Async -->
+          <xs:element name="registrationRegrequestId" type="xs:string" minOccurs="0"/>
+          <!--  Контрагент -->
+          <xs:element name="counterparty" type="tns:Counterparty" minOccurs="0"/>
+          <!--  Регистрационные данные в SAP SRM -->
+          <xs:element name="counterpartySapIdentities" type="tns:CounterpartySapIdentities" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+      <!--  Контрагент -->
       <xs:complexType name="Counterparty">
         <xs:sequence>
+          <!--  Признак того, что это новый контрагент, а не модификация данных существующиего -->
           <xs:element name="isNew" type="xs:boolean"/>
+          <!--  Признак того, что для существующего контрагента (isNew=false) требуется обновить атрибуты.  -->
           <xs:element name="needAtributeUpdate" type="xs:boolean"/>
+          <!--  Признак того, что это Российская компания или ИП -->
           <xs:element name="isResident" type="xs:boolean"/>
+          <!--  Признак того, что это ИП -->
           <xs:element name="isEntrepreneur" type="xs:boolean"/>
+          <!--  Данные о Российской компании (isResident = true и isEntrepreneur = false) -->
           <xs:element name="companyRus" type="tns:CompanyRus" minOccurs="0"/>
+          <!--  Данные о ИП (isResident = true и isEntrepreneur = true) -->
           <xs:element name="flPrivateEntrepreneur" type="tns:PrivateEntrepreneur" minOccurs="0"/>
+          <!--  Данные об Иностранной компании (isResident = false) -->
           <xs:element name="companyForeign" type="tns:CompanyForeign" minOccurs="0"/>
+          <!--  Данные о Банковских реквизитах -->
           <xs:element name="bankDetails" type="tns:BankDetail" minOccurs="0" maxOccurs="unbounded"/>
+          <!--  Данные о Контактах -->
           <xs:element name="contacts" type="tns:Contact" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          <!--  Данные о подтверждении адреса местонахождения -->
           <xs:element name="confirmLocation" type="tns:Attachment" minOccurs="0"/>
+          <!--  Данные о подтверждении возможности выполнения контракта собственными силами -->
           <xs:element name="confirmAbility" type="tns:Attachment" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Данные о Российской компании  -->
       <xs:complexType name="CompanyRus">
         <xs:sequence>
+          <!--  Полное наименование  -->
           <xs:element name="fullName" type="xs:string" minOccurs="0"/>
+          <!--  Кр. наименование  -->
           <xs:element name="shortName" type="xs:string" minOccurs="0"/>
+          <!-- ИНН -->
           <xs:element name="inn" type="xs:string"/>
+          <!--  КПП  -->
           <xs:element name="kpp" type="xs:string" minOccurs="0"/>
+          <!--  ОГРН  -->
           <xs:element name="ogrn" type="xs:string" minOccurs="0"/>
+          <!--  ОКПО -->
           <xs:element name="okpo" type="xs:string"/>
+          <!--  БИК  -->
           <xs:element name="bic" type="xs:string"/>
+          <!--  Код АСВ НСИ   -->
           <xs:element name="asv_nsi_code" type="xs:string" minOccurs="0"/>
+          <!--  СПАРК Ид.  -->
           <xs:element name="sparkid" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Данные об ИП  -->
       <xs:complexType name="PrivateEntrepreneur">
         <xs:sequence>
+          <!-- ИНН -->
           <xs:element name="inn" type="xs:string"/>
+          <!-- ОГРНИП -->
           <xs:element name="ogrnip" type="xs:string"/>
+          <!-- ФИО -->
           <xs:element name="fio" type="xs:string" minOccurs="0"/>
+          <!-- ОКПО -->
           <xs:element name="okpo" type="xs:string" minOccurs="0"/>
+          <!-- Код АСВ НСИ   -->
           <xs:element name="asv_nsi_code" type="xs:string" minOccurs="0"/>
+          <!--  СПАРК Ид.  -->
           <xs:element name="sparkid" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Данные об Иностранной компании  -->
       <xs:complexType name="CompanyForeign">
         <xs:sequence>
+          <!--  Регистрационный номер  -->
           <xs:element name="regNum" type="xs:string"/>
+          <!--  Дата регистрации  -->
           <xs:element name="regDate" type="xs:date"/>
+          <!--  Регистрирущий орган  -->
           <xs:element name="issuingAuthority" type="xs:string"/>
+          <!--  Полное наименование  -->
           <xs:element name="fullName" type="xs:string"/>
+          <!--  Кр. наименование  -->
           <xs:element name="shortName" type="xs:string"/>
+          <!--  Полное наименование нативное -->
           <xs:element name="nativeName" type="xs:string"/>
+          <!--  Кр. наименование нативное -->
           <xs:element name="nativeShortName" type="xs:string" minOccurs="0"/>
+          <!--  Страна  -->
           <xs:element name="country" type="xs:string"/>
+          <!--  Телефон  -->
           <xs:element name="phoneNumber" type="xs:string"/>
+          <!--  email  -->
           <xs:element name="email" type="xs:string"/>
+          <!--  веб страница  -->
           <xs:element name="site" type="xs:string"/>
+          <!--  Код АСВ НСИ -->
           <xs:element name="asv_nsi_code" type="xs:string" minOccurs="0"/>
+          <!--  Адреса  -->
           <xs:element name="addresses" type="tns:Address" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Адрес -->
       <xs:complexType name="Address">
         <xs:sequence>
+          <!--  Тип адреса  -->
           <xs:element name="addrType" type="tns:AddressTypes"/>
+          <!--  Почтовый ящик  -->
           <xs:element name="mailBox" type="xs:string" minOccurs="0"/>
+          <!--  Страна  -->
           <xs:element name="country" type="xs:string"/>
+          <!--  Город  -->
           <xs:element name="city" type="xs:string"/>
+          <!--  Почтовый код  -->
           <xs:element name="postalCode" type="xs:string"/>
+          <!--  Улица  -->
           <xs:element name="street" type="xs:string"/>
+          <!--  Дом  -->
           <xs:element name="house" type="xs:string"/>
+          <!--  Квартира, комната  -->
           <xs:element name="room" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Банковские реквизиты  -->
       <xs:complexType name="BankDetail">
         <xs:sequence>
+          <!--  Страна  -->
           <xs:element name="country" type="xs:string"/>
+          <!--  БИК  -->
           <xs:element name="bic" type="xs:string"/>
+          <!--  SWIFT  -->
           <xs:element name="swift" type="xs:string"/>
+          <!--  счет  -->
           <xs:element name="checkingAccount" type="xs:string"/>
+          <!--  Валюта счета  -->
           <xs:element name="accountCurrency" type="xs:string"/>
+          <!--  Наименование банка  -->
           <xs:element name="bankName" type="xs:string" minOccurs="0"/>
+          <!--  Корр. счет  -->
           <xs:element name="correspondentAccount" type="xs:string" minOccurs="0"/>
+          <!--  Адрес банка  -->
           <xs:element name="bankAddress" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Контактное лицо  -->
       <xs:complexType name="Contact">
         <xs:sequence>
+          <!--  GUID контактного лица в SAP SRM  -->
           <xs:element name="contact_guid" type="xs:string"/>
+          <!--  ФИО контактного лица  -->
           <xs:element name="fio" type="xs:string" minOccurs="0"/>
+          <!--  Имя контактного лица  -->
           <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+          <!--  Отчество контактного лица  -->
           <xs:element name="secondName" type="xs:string" minOccurs="0"/>
+          <!--  Фамилия контактного лица  -->
           <xs:element name="lastName" type="xs:string" minOccurs="0"/>
+          <!-- ИНН  -->
           <xs:element name="inn" type="xs:string" minOccurs="0"/>
+          <!-- Должность  -->
           <xs:element name="post" type="xs:string" minOccurs="0"/>
+          <!--  Код страны телефона  -->
+          <xs:element name="phone_country_cod" type="xs:string" minOccurs="0"/>
+          <!--  Номер телефона  -->
           <xs:element name="phone" type="xs:string" minOccurs="0"/>
+          <!--  email  -->
           <xs:element name="email" type="xs:string" minOccurs="0"/>
+          <!--  Язык -->
           <xs:element name="language" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Вложение -->
       <xs:complexType name="Attachment">
         <xs:sequence>
+          <!--  Тип вложения -->
           <xs:element name="AttachmentType" type="xs:string" minOccurs="0"/>
+          <!--  Наименование вложения -->
           <xs:element name="AttachmentName" type="xs:string" minOccurs="0"/>
+          <!--  Наименование файла вложения -->
           <xs:element name="FileName" type="xs:string"/>
+          <!--  Расширение файла вложения -->
           <xs:element name="FileExtension" type="xs:string"/>
+          <!--  Файл вложения -->
           <xs:element name="attachment_body" type="xs:base64Binary"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Регистрационные данные контрагента в SAP SRM-->
       <xs:complexType name="CounterpartySapIdentities">
         <xs:sequence>
+          <!--  Идентификатор контрагента в SAP SRM-->
           <xs:element name="sap_srm_id" type="xs:decimal"/>
+          <!--  Дата регистрации  контрагента в SAP SRM-->
           <xs:element name="regDate" type="xs:date"/>
         </xs:sequence>
       </xs:complexType>
@@ -272,24 +492,14 @@
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="PutContractStatus">
-        <xs:sequence>
-          <xs:element name="header" type="tns:Header" minOccurs="0"/>
-          <xs:element name="contractId" type="xs:string" minOccurs="0"/>
-          <xs:element name="approvalStage" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>
-
-      <xs:complexType name="PutContractStatusResponse">
-        <xs:sequence>
-          <xs:element name="ResponseSync" type="tns:SyncResponse" form="qualified" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>
-
+      <!--   Сообщение SAP SRM о том , что контрагент - участник подал заявку на регистрацию (в SAP SRM)-->
       <xs:complexType name="CheckAndSaveRegistrCounterpartySRM_Async">
         <xs:sequence>
+          <!--  Заголовок -->
           <xs:element name="header" type="tns:Header" minOccurs="0"/>
+          <!--  GUID заявки на регистрацию в SAP SRM-->
           <xs:element name="registrreq_guid" type="xs:string" minOccurs="0"/>
+          <!--  Реквизиты контрагента, достаточные для идентфикации и необходимые для проверки-->
           <xs:element name="counterparty" type="tns:Counterparty" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
@@ -300,27 +510,40 @@
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Запрос на заключение по участникам конкуррентной процедуры-->
       <xs:complexType name="ConcurrentProcedureConclusionRequestAsync">
         <xs:sequence>
+          <!--  Заголовок -->
           <xs:element name="header" type="tns:Header" minOccurs="0"/>
+          <!--  Данные о конкуррентной процедуре и ее участниках, по которым необходимо подготовить заключение-->
           <xs:element name="concurrentProcedure" type="tns:ConcurrentProcedure" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Данные о конкуррентной процедуре и ее участниках, по которым необходимо подготовить заключение-->
       <xs:complexType name="ConcurrentProcedure">
         <xs:sequence>
+          <!--  Номер конкуррентной процедуры -->
           <xs:element name="procedureNumber" type="xs:string"/>
+          <!--  Этап конкуррентной процедуры -->
           <xs:element name="procedureStepNumber" type="xs:string"/>
+          <!--  Статус конкуррентной процедуры -->
           <xs:element name="status" type="xs:string" minOccurs="0"/>
+          <!--  Дата статуса -->
           <xs:element name="status_date" type="xs:dateTime" minOccurs="0"/>
+          <!--  Данные о  участниках и их предложениях (суммах)-->
           <xs:element name="participatorsOffers" type="tns:Offer" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Данные о  участнике и его предложении (сумме)-->
       <xs:complexType name="Offer">
         <xs:sequence>
+          <!--  Идентификатор контрагента в SAP SRM-->
           <xs:element name="sap_srm_id" type="xs:decimal"/>
+          <!--  GUID запрса заключения по контрагенту на этапе конкурррентной процедуры в SAP SRM-->
           <xs:element name="prtcip_request_guid" type="xs:string"/>
+          <!--  Сумма предложения контрагента с НДС -->
           <xs:element name="offertaAmmount" type="xs:decimal" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
@@ -344,10 +567,14 @@
         </xs:sequence>
       </xs:complexType>
 
+      <!--  Тип адреса -->
       <xs:simpleType name="AddressTypes">
         <xs:restriction base="xs:string">
+          <!--  Юридический -->
           <xs:enumeration value="LEGALADDR"/>
+          <!--  Почтовый -->
           <xs:enumeration value="POSTADDR"/>
+          <!--  Фактический -->
           <xs:enumeration value="ACTUAL"/>
         </xs:restriction>
       </xs:simpleType>
@@ -365,11 +592,11 @@
   <message name="ConcurrentProcedureConclusionRequestAsyncResponse">
     <part name="parameters" element="tns:ConcurrentProcedureConclusionRequestAsyncResponse"/>
   </message>
-  <message name="PutCounterpartyInfo">
-    <part name="parameters" element="tns:PutCounterpartyInfo"/>
+  <message name="PutContractStatus">
+    <part name="parameters" element="tns:PutContractStatus"/>
   </message>
-  <message name="PutCounterpartyInfoResponse">
-    <part name="parameters" element="tns:PutCounterpartyInfoResponse"/>
+  <message name="PutContractStatusResponse">
+    <part name="parameters" element="tns:PutContractStatusResponse"/>
   </message>
   <message name="PutHistoricalContracts">
     <part name="parameters" element="tns:PutHistoricalContracts"/>
@@ -377,17 +604,17 @@
   <message name="PutHistoricalContractsResponse">
     <part name="parameters" element="tns:PutHistoricalContractsResponse"/>
   </message>
-  <message name="PutContractStatus">
-    <part name="parameters" element="tns:PutContractStatus"/>
-  </message>
-  <message name="PutContractStatusResponse">
-    <part name="parameters" element="tns:PutContractStatusResponse"/>
-  </message>
   <message name="ContractConclusionRequestAsync">
     <part name="parameters" element="tns:ContractConclusionRequestAsync"/>
   </message>
   <message name="ContractConclusionRequestAsyncResponse">
     <part name="parameters" element="tns:ContractConclusionRequestAsyncResponse"/>
+  </message>
+  <message name="PutCounterpartyInfo">
+    <part name="parameters" element="tns:PutCounterpartyInfo"/>
+  </message>
+  <message name="PutCounterpartyInfoResponse">
+    <part name="parameters" element="tns:PutCounterpartyInfoResponse"/>
   </message>
   <portType name="CounterPartyControlServiceImpl">
     <operation name="CheckAndSaveRegistrCounterpartySRM_Async">
@@ -398,9 +625,9 @@
       <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/ConcurrentProcedureConclusionRequestAsyncRequest" message="tns:ConcurrentProcedureConclusionRequestAsync"/>
       <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/ConcurrentProcedureConclusionRequestAsyncResponse" message="tns:ConcurrentProcedureConclusionRequestAsyncResponse"/>
     </operation>
-    <operation name="PutCounterpartyInfo">
-      <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutCounterpartyInfoRequest" message="tns:PutCounterpartyInfo"/>
-      <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutCounterpartyInfoResponse" message="tns:PutCounterpartyInfoResponse"/>
+    <operation name="PutContractStatus">
+      <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutContractStatusRequest" message="tns:PutContractStatus"/>
+      <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutContractStatusResponse" message="tns:PutContractStatusResponse"/>
     </operation>
     <operation name="PutHistoricalContracts">
       <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutHistoricalContractsRequest"
@@ -408,13 +635,15 @@
       <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutHistoricalContractsResponse"
               message="tns:PutHistoricalContractsResponse"/>
     </operation>
-    <operation name="PutContractStatus">
-      <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutContractStatusRequest" message="tns:PutContractStatus"/>
-      <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutContractStatusResponse" message="tns:PutContractStatusResponse"/>
-    </operation>
     <operation name="ContractConclusionRequestAsync">
       <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/ContractConclusionRequestAsyncRequest" message="tns:ContractConclusionRequestAsync"/>
       <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/ContractConclusionRequestAsyncResponse" message="tns:ContractConclusionRequestAsyncResponse"/>
+    </operation>
+    <operation name="PutCounterpartyInfo">
+      <input wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutCounterpartyInfoRequest"
+             message="tns:PutCounterpartyInfo"/>
+      <output wsam:Action="http://spi2.ru/jaxws/datatypes/CounterPartyControlServiceImpl/PutCounterpartyInfoResponse"
+              message="tns:PutCounterpartyInfoResponse"/>
     </operation>
   </portType>
   <binding name="CounterpartyControlServicePortBinding" type="tns:CounterPartyControlServiceImpl">
@@ -437,7 +666,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="PutCounterpartyInfo">
+    <operation name="PutContractStatus">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -455,7 +684,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="PutContractStatus">
+    <operation name="ContractConclusionRequestAsync">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -464,7 +693,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="ContractConclusionRequestAsync">
+    <operation name="PutCounterpartyInfo">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
