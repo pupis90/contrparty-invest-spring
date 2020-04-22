@@ -3,7 +3,7 @@ package security.contrparties.investigations.domain_etalon;
 import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;
 
-@XmlRootElement(name = "CounterpartySapIdentitiesEntity", namespace = "http://spi2.ru/jaxws/datatypes")
+@XmlRootElement(name = "CounterpartySapIdentities", namespace = "http://spi2.ru/jaxws/datatypes")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "CounterpartySapIdentities",  namespace = "http://spi2.ru/jaxws/datatypes",
 		propOrder = {"sap_srm_id","regDate"})

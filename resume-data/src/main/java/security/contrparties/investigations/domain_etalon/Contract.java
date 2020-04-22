@@ -54,7 +54,7 @@ public class Contract {
 	 *  Передается только АСВ НСИ код контрагента
 	 */
 	@XmlElement(name="counterparty_info",required = true)
-    //public CounterpartyEntity counterpartyEntity;
+    //public Counterparty counterparty;
 	public CounterpartyInfo counterpartyInfo;
 
 	/** Ссылка на договор в КИС	*/

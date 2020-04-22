@@ -117,13 +117,17 @@ public class CounterPartyControlServiceImpl {
     //******<!-- Сообщения SAP SRM. Регистрация участника и cогласование участника на этапах конкуррентной процедуры -->
 
     /**
-     * Метод, принимающий сообщение о том , что контрагент подал заявку на регистрацию (в SAP SRM)
-     * @param  - реквизиты контрагента и др. информация
+     *  Метод, принимающий сообщение о том , что контрагент подал заявку на регистрацию (в SAP SRM)
+     *  с целью проведения проверки основных данных, предоставленных контрагентом
      *
      * @return
      */
- //   @WebMethod(operationName = "CheckAndSaveRegistrCounterpartySRM_Async")
- //   @WebResult(name = "ResponseSync", targetNamespace = "http://spi2.ru/jaxws/datatypes", partName = "response")
+//    @WebMethod(operationName = "PutCounterpartyInfo")
+//    @WebResult(name = "ResponseSync", targetNamespace = "http://spi2.ru/jaxws/datatypes", partName = "response")
+//    public security.contrparties.investigations.domain_etalon.SyncResponse putCounterpartySrmId(@WebParam(name = "header") Header header,
+//                                                                                                @WebParam(name = "registrationRegrequestId") String registrationRegrequestId,
+//                                                                                                @WebParam(name = "counterparty") Counterparty counterparty,
+//                                                                                                @WebParam(name = "counterpartySapIdentities")CounterpartySapIdentities counterpartySapIdentities)
     @PayloadRoot(localPart = "CheckAndSaveRegistrCounterpartySRM_Async", namespace = "http://spi2.ru/jaxws/datatypes")
     @ResponsePayload
     public JAXBElement<CheckAndSaveRegistrCounterpartySRMAsyncResponse> checkAndSaveRegistrCounterpartySRM_Async(@RequestPayload JAXBElement<CheckAndSaveRegistrCounterpartySRMAsync> checkAndSaveRegistrCounterpartySRMAsyncJAXBElement

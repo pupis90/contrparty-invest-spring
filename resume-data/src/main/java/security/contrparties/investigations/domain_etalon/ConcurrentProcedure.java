@@ -6,15 +6,15 @@ import java.util.List;
 
 @XmlType(name = "ConcurrentProcedure", namespace = "http://spi2.ru/jaxws/datatypes")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "concurrentProcedureEntity", namespace = "http://spi2.ru/jaxws/datatypes")
+@XmlRootElement(name = "concurrentProcedure", namespace = "http://spi2.ru/jaxws/datatypes")
 public class ConcurrentProcedure {
 
 	/** Номер КП  - Номер тендерной процедуры уникален*/
-	@XmlElement (namespace = "http://spi2.ru/jaxws/datatypes", required = true)
+    @XmlElement(required = true)
 	public String procedureNumber;
 
 	/** Номер этапа КП */
-	@XmlElement (namespace = "http://spi2.ru/jaxws/datatypes",  required = true)
+    @XmlElement(required = true)
 	public String procedureStepNumber;
 
 	/**Статус процедуры*/
@@ -23,7 +23,6 @@ public class ConcurrentProcedure {
 	@XmlElement(name = "status_date")
 	@XmlSchemaType(name = "dateTime")
 	public javax.xml.datatype.XMLGregorianCalendar statusDate;
-
 
 	// Дата окончания приема заявок
 	// Статус (Открыта, Закрыта)
@@ -40,7 +39,7 @@ public class ConcurrentProcedure {
 	// 5. Председатель конкурсной комиссии
     //
 
-	@XmlElement(namespace = "http://spi2.ru/jaxws/datatypes", required = true)
+    @XmlElement(required = true)
 	public List<Offer> participatorsOffers;
 
 
