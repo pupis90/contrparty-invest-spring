@@ -87,7 +87,7 @@ public class SoapMessageStageHandleServiceImpl {
 
 
     @Transactional
-    public void saveAfterHandle(MessageContext messageContext, SyncResponse syncResponse) {
+    public void updateAfterHandle(MessageContext messageContext, SyncResponse syncResponse) {
 
 
     }
