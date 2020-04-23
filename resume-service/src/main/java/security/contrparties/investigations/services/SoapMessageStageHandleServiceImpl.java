@@ -52,8 +52,13 @@ public class SoapMessageStageHandleServiceImpl {
             }
 
             String soapContent = outputStream.toString("UTF-8");
+            /**@ToDo !!!!!!!!!!!!!! Это обрезание исключительно при прототипировании для поля character varing Postgres. Нужно для Oracle
+            !!!!!!!!!!!  раскомментировать @Lob  */
             logger.info(soapContent);
-            rawWsDataEntity.soapData = soapContent;
+            String soapContentFit = "";
+            soapContentFit = (soapContent.length() < 1500) ? soapContent : soapContent.substring(0, 1499);
+            //*************************
+            rawWsDataEntity.soapData = soapContentFit;
             rawWsDataEntity.creationTimestamp = new Date();
 
 
