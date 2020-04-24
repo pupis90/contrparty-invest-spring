@@ -14,7 +14,7 @@ import javax.persistence.*;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
-@Table(name = "ContractPerson")
+@Table(name = "STG_ContractPerson")
 public class ContractPersonEntity extends BaseEntity {
 
     @ManyToOne(cascade = PERSIST)

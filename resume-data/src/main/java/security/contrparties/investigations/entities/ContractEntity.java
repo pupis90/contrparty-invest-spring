@@ -12,7 +12,7 @@ import java.util.List;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
-@Table(name = "Contract")
+@Table(name = "STG_Contract")
 public class ContractEntity extends BaseEntity {
 
     @Size(max = 50)

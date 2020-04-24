@@ -23,7 +23,7 @@ import java.util.List;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
-@Table(name = "Counterparty")
+@Table(name = "STG_Counterparty")
 public class CounterpartyEntity extends BaseEntity {
 
     @OneToOne(cascade = PERSIST)

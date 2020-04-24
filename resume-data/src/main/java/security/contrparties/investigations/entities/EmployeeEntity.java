@@ -9,9 +9,11 @@
 package security.contrparties.investigations.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "STG_EMPLOY")
 public class EmployeeEntity extends BaseEntity {
 
     @Size(max = 200)

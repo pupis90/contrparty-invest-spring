@@ -10,9 +10,11 @@ package security.contrparties.investigations.entities;
 
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "STG_OFFER")
 public class OfferEntity extends BaseEntity {
 
 

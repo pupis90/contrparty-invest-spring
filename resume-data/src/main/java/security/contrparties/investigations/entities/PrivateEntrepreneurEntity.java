@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PrivateEntrepreneur")
+@Table(name = "STG_PrivateEntrepreneur")
 public class PrivateEntrepreneurEntity extends BaseEntity {
 
     protected String inn;

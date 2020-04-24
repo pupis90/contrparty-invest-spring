@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CounterpartyInfo")
+@Table(name = "STG_CounterpartyInfo")
 public class CounterpartyInfoEntity extends BaseEntity {
 
     protected String asvnsicode;

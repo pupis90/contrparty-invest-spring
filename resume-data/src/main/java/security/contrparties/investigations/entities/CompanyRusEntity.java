@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name = "CompanyRus")
+@Table(name = "STG_CompanyRus")
 public class CompanyRusEntity extends BaseEntity {
 
     @Size(max = 500)

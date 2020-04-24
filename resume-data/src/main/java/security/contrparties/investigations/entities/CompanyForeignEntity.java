@@ -19,7 +19,7 @@ import java.util.List;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
-@Table(name = "CompanyForeign")
+@Table(name = "STG_CompanyForeign")
 public class CompanyForeignEntity extends BaseEntity {
 
     protected String regNum;

@@ -10,6 +10,7 @@ package security.contrparties.investigations.entities;
 
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
+@Table(name = "STG_SAP_IDENT")
 public class CounterpartySapIdentitiesEntity extends BaseEntity {
 
 

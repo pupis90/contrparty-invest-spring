@@ -16,7 +16,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
 
 @Entity
-@Table(name = "PersonRUS")
+@Table(name = "STG_PersonRUS")
 public class PersonRUSEntity extends BaseEntity {
 
     protected String firstName;

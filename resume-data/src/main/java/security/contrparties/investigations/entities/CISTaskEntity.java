@@ -16,7 +16,7 @@ import java.util.Date;
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
-@Table(name = "CISTask")
+@Table(name = "STG_CISTask")
 public class CISTaskEntity extends BaseEntity {
 
     @Size(max = 100)

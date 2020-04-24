@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "Address")
+@Table(name = "STG_Address")
 public class AddressEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     protected AddressTypesEntity addrType;

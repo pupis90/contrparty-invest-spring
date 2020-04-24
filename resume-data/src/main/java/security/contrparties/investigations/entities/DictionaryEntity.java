@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "UniversalDictionary")
+@Table(name = "STG_Universal_Dictionary")
 public class DictionaryEntity extends BaseEntity {
 
     protected String code;

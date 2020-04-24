@@ -9,8 +9,10 @@
 package security.contrparties.investigations.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "STG_RESPONSE")
 public class SyncResponseEntity extends BaseEntity {
 
     protected String resultCode;

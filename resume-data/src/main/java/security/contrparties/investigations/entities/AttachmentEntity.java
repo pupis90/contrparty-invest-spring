@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Attachment")
+@Table(name = "STG_Attachment")
 public class AttachmentEntity extends BaseEntity {
 
     protected String attachmentType;

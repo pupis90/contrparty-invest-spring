@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Passport")
+@Table(name = "STG_Passport")
 public class PassportEntity extends BaseEntity {
 
 

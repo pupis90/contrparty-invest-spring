@@ -8,10 +8,7 @@
 
 package security.contrparties.investigations.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +17,7 @@ import java.util.List;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
+@Table(name = "STG_CONCUR_PROC")
 public class ConcurrentProcedureEntity extends BaseEntity {
 
 
