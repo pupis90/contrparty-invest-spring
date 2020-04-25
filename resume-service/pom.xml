@@ -68,10 +68,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<!--
-				https://github.com/wro4j/wro4j -->
-				<groupId>ro.isdc.wro4j</groupId>
+			<!--plugin>
+			 <groupId>ro.isdc.wro4j</groupId>
 				<artifactId>wro4j-maven-plugin</artifactId>
 				<version>${wro4j.version}</version>
 				<executions>
@@ -101,7 +99,7 @@
 						<version>2.23.0</version>
 					</dependency>
 				</dependencies>
-			</plugin>
+			</plugin-->
 
 		</plugins>
 	</build>

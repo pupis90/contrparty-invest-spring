@@ -25,31 +25,36 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
+        <!-- Oracle JDBC driver -->
+        <!-- mvn install:install-file -Dfile="D:\rs\****\Downloads\ojdbc8.jar" -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=12.1.0.2.0 -Dpackaging=j -->
         <!-- database -->
-        <!--dependency>
-        <groupId>com.oracle</groupId>
-       <artifactId>ojdbc7</artifactId>
-       <version>12.1.0.2</version>
-         </dependency-->
 
-        <!--dependency>
+        <dependency>
             <groupId>com.oracle.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
-            <version>12.2.0.1</version>
-        </dependency-->
-
-        <dependency>
-            <groupId>driver.jdbc.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>${oracle.jdbc.version}</version>
+            <version>12.2.0.1.0</version>
         </dependency>
 
+        <!--dependency>
+            <groupId>com.oracle.ojdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <scope>runtime</scope>
+        </dependency-->
+
+
+        <!-- HikariCP connection pool -->
         <dependency>
-            <groupId>driver.jdbc.oracle</groupId>
-            <artifactId>orai18n</artifactId>
-            <version>${oracle.jdbc.version}</version>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.6.0</version>
         </dependency>
 
         <!-- PostgreSQL -->
@@ -58,11 +63,6 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.oracle.ojdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
