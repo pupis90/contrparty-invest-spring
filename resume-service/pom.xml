@@ -9,8 +9,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>resume-service</artifactId>
-	<name>resume generator services with Spring Boot</name>
-	<description>services with Spring Boot for generate Resume</description>
+	<name>Recipient Request Verdict Web service</name>
+	<description>integration web service with Spring Boot for generate Verdict</description>
+	<packaging>war</packaging>
 	<url>http://www.spring.io/spring-boot/</url>
 	<organization>
 		<name>Security Problem Institute, Inc.</name>

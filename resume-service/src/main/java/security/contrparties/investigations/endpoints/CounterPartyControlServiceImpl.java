@@ -7,9 +7,11 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import security.contrparties.investigations.ResultCodesEnum;
 import security.contrparties.investigations.domain.*;
 import security.contrparties.investigations.services.CheckAndSaveRegistrCounterpartyService;
 import security.contrparties.investigations.services.SoapMessageStageHandleServiceImpl;
+import security.contrparties.investigations.services.ValidationService;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBElement;
@@ -27,13 +29,25 @@ public class CounterPartyControlServiceImpl {
     @Autowired
     ApplicationContext applicationContext;
 
-    public CounterPartyControlServiceImpl(CheckAndSaveRegistrCounterpartyService checkAndSaveRegistrCounterpartyService, SoapMessageStageHandleServiceImpl soapMessageStageProcessService) {
+    public CounterPartyControlServiceImpl(CheckAndSaveRegistrCounterpartyService checkAndSaveRegistrCounterpartyService,
+                                          SoapMessageStageHandleServiceImpl soapMessageStageProcessService,
+                                          ValidationService<Counterparty> validationCntrService,
+                                          ValidationService<CISTask> validationCisTaskService,
+                                          ValidationService<Contract> validationContractService
+    ) {
         this.checkAndSaveRegistrCounterpartyService = checkAndSaveRegistrCounterpartyService;
         this.soapMessageStageProcessService = soapMessageStageProcessService;
+        this.validationCntrService = validationCntrService;
+        this.validationCisTaskService = validationCisTaskService;
+        this.validationContractService = validationContractService;
+
     }
 
     CheckAndSaveRegistrCounterpartyService checkAndSaveRegistrCounterpartyService;
     SoapMessageStageHandleServiceImpl soapMessageStageProcessService;
+    ValidationService validationCntrService;
+    ValidationService validationCisTaskService;
+    ValidationService validationContractService;
 
 
     @PostConstruct
@@ -59,17 +73,14 @@ public class CounterPartyControlServiceImpl {
     @ResponsePayload
     public JAXBElement<PutHistoricalContractsResponse> putHistoricalContracts(@RequestPayload JAXBElement<PutHistoricalContracts> putHistoricalContractsJAXBElement
             , MessageContext messageContext) {
-        //   @RequestPayload Header header, @RequestPayload List<Contract> contracts
         //@ToDo Везде проверки на null или использовать Optional класс
 
         ObjectFactory objectFactory = new ObjectFactory();
         soapMessageStageProcessService.saveBeforeHandle(messageContext);
-
         PutHistoricalContractsResponse handlerStatus = objectFactory.createPutHistoricalContractsResponse();
         SyncResponse syncResponse = objectFactory.createSyncResponse();
-        //псевдокод
-        syncResponse.setResultCode("success");
 
+        syncResponse.setResultCode(ResultCodesEnum.success.name());
         String mess = "Принято в обработку.  ";
         mess += " Запрос " + putHistoricalContractsJAXBElement.getValue().getHeader().getRequestid() + " от " +
                 putHistoricalContractsJAXBElement.getValue().getHeader().getRequestdate();
@@ -95,24 +106,19 @@ public class CounterPartyControlServiceImpl {
     public JAXBElement<ContractConclusionRequestAsyncResponse> contractConclusionRequestAsync(@RequestPayload JAXBElement<ContractConclusionRequestAsync> contractConclusionRequestAsyncJAXBElement
             , MessageContext messageContext) {
 
+        String mess;
         ObjectFactory objectFactory = new ObjectFactory();
         soapMessageStageProcessService.saveBeforeHandle(messageContext);
-
         ContractConclusionRequestAsyncResponse handlerStatus = objectFactory.createContractConclusionRequestAsyncResponse();
-        SyncResponse syncResponse = objectFactory.createSyncResponse();
-        //псевдокод
-        syncResponse.setResultCode("success");
         CISTask cisTask = contractConclusionRequestAsyncJAXBElement.getValue().getCisTask();
+        SyncResponse syncResponse = validationCisTaskService.validate(cisTask);
+        handlerStatus.setResponseSync(syncResponse);
+        soapMessageStageProcessService.updateAfterHandle(messageContext, syncResponse);
 
-        String mess = "Принято в обработку.  ";
+        mess = syncResponse.getResultMessage();
         mess += " Запрос " + contractConclusionRequestAsyncJAXBElement.getValue().getHeader().getRequestid() + " от " +
                 contractConclusionRequestAsyncJAXBElement.getValue().getHeader().getRequestdate();
-        mess += " Задача КИС " + cisTask.getTaskId();
-        String contractId = cisTask.getContract().getContractId();
-
-        mess += " Будет выдано Заключение СБ на Договор с идентификатором " + contractId;
         syncResponse.setResultMessage(mess);
-        handlerStatus.setResponseSync(syncResponse);
 
         return objectFactory.createContractConclusionRequestAsyncResponse(handlerStatus);
     }

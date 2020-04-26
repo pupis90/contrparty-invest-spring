@@ -8,7 +8,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
-import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition;
 import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
@@ -24,7 +23,8 @@ public class SOAPWebServiceConfig  extends WsConfigurerAdapter {
         messageDispatcherServlet.setApplicationContext(applicationContext);
         messageDispatcherServlet.setTransformWsdlLocations(true);
 
-        return new ServletRegistrationBean<MessageDispatcherServlet>(messageDispatcherServlet,"/ias_proverka/*");
+        //  return new ServletRegistrationBean<MessageDispatcherServlet>(messageDispatcherServlet,"/ias_proverka/*");
+        return new ServletRegistrationBean<MessageDispatcherServlet>(messageDispatcherServlet, "/ws/*");
     }
 
   /*  @Bean(name="CounterPartyControlService")
@@ -42,7 +42,8 @@ public class SOAPWebServiceConfig  extends WsConfigurerAdapter {
     @Bean(name ="CounterPartyControlService")
     public Wsdl11Definition defaultWsdl11Definition() {
         SimpleWsdl11Definition wsdl11Definition = new SimpleWsdl11Definition();
-        wsdl11Definition.setWsdl(new ClassPathResource("/webapp/WEB-INF/wsdl/CounterPartyControlService.wsdl"));
+        //  wsdl11Definition.setWsdl(new ClassPathResource("/webapp/WEB-INF/wsdl/CounterpartyControlService.wsdl"));
+        wsdl11Definition.setWsdl(new ClassPathResource("CounterpartyControlService.wsdl"));
         return wsdl11Definition;
     }
 

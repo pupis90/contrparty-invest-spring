@@ -9,8 +9,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>resume-data</artifactId>
-    <name>resume domain with Spring JPA</name>
-    <description>resume domain for SOAP interaction and generate Resume with Spring JPA</description>
+    <name>Domain with Spring JPA</name>
+    <description>Domain for SOAP interaction and generate Verdict with Spring JPA</description>
     <url>http://www.spring.io/spring-boot/</url>
     <organization>
         <name>Security Problem Institute, Inc.</name>
@@ -34,7 +34,6 @@
         </dependency>
 
         <!-- Oracle JDBC driver -->
-        <!-- mvn install:install-file -Dfile="D:\rs\****\Downloads\ojdbc8.jar" -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=12.1.0.2.0 -Dpackaging=j -->
         <!-- database -->
 
         <dependency>

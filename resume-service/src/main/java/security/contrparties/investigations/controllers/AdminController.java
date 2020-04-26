@@ -17,18 +17,16 @@
 package security.contrparties.investigations.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AdminController {
 
-/*	@Autowired
-	private CityService cityService;
+    //  @RequestMapping("/")
+    @GetMapping(value = "/")
+    public String startPage(Model model) {
+        return "start";
+    }
 
-	@RequestMapping("/")
-	@ResponseBody
-	@Transactional(readOnly = true)
-	public String helloWorld() {
-		return this.cityService.getCity("Bath", "UK").getName();
-	}
-	*/
 }
